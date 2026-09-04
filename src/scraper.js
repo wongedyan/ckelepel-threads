@@ -14,6 +14,7 @@ import {
   normalizePost,
   buildReplyTree,
   formatReplyTreeAscii,
+  expandQuery,
 } from './normalizers.js';
 
 export async function getProfile(username, options = {}) {
@@ -409,13 +410,18 @@ export async function getUserPosts(username, options = {}) {
 }
 
 export async function searchThreads(query, options = {}) {
-  // Support both single query string and array of multi-queries (e.g. fan-out search)
-  const queries = Array.isArray(query)
+  // Support single query string and array of multi-queries, with auto-expansion
+  let queries = Array.isArray(query)
     ? query.map((q) => String(q).trim()).filter(Boolean)
     : [String(query || '').trim()].filter(Boolean);
 
   if (queries.length === 0) {
     throw new Error('Search query is required');
+  }
+
+  // Auto-expand known umbrella topics
+  if (queries.length === 1 && options.expand !== false) {
+    queries = expandQuery(queries[0]);
   }
 
   const limit = options.limit || 20;

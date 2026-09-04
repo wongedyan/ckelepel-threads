@@ -18,6 +18,8 @@ export {
   normalizePost,
   extractInitialPayload,
   matchesStrictQuery,
+  expandQuery,
+  ENTITY_EXPANSION_MAP,
 } from './normalizers.js';
 
 export {

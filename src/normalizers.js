@@ -1,3 +1,68 @@
+export const ENTITY_EXPANSION_MAP = {
+  // Indonesian trending religious/public figures & controversy umbrella clusters
+  'mama gufron': [
+    'mama ghufron',
+    'abuya ghufron',
+    'mama gufron',
+    'ponpes unqoriah',
+    'bahasa suryani',
+    'bahasa jin',
+    'debat nasab',
+    'nasab ba alwi',
+    'kh imaduddin',
+    'habib vs kiai',
+  ],
+  'mama ghufron': [
+    'mama ghufron',
+    'abuya ghufron',
+    'mama gufron',
+    'ponpes unqoriah',
+    'bahasa suryani',
+    'bahasa jin',
+    'debat nasab',
+    'nasab ba alwi',
+    'kh imaduddin',
+  ],
+  // Football / Soccer leagues & rivals
+  'liga spanyol': [
+    'liga spanyol',
+    'laliga',
+    'real madrid',
+    'barcelona',
+    'atletico madrid',
+    'clasico',
+    'hasil laliga',
+    'klasemen liga spanyol',
+  ],
+  'liga inggris': [
+    'liga inggris',
+    'premier league',
+    'epl',
+    'manchester united',
+    'arsenal',
+    'liverpool',
+    'manchester city',
+    'chelsea',
+  ],
+};
+
+/**
+ * Expands query if known umbrella topic entity exists in map
+ * @param {string} query
+ * @returns {string[]}
+ */
+export function expandQuery(query) {
+  if (!query || typeof query !== 'string') return [query];
+  const clean = query.trim().toLowerCase();
+  for (const [key, expansions] of Object.entries(ENTITY_EXPANSION_MAP)) {
+    if (clean === key || clean.includes(key)) {
+      const merged = [query, ...expansions.filter(e => e.toLowerCase() !== clean)];
+      return Array.from(new Set(merged));
+    }
+  }
+  return [query];
+}
+
 export function matchesStrictQuery(text, query) {
   if (!text || typeof text !== 'string' || !query || typeof query !== 'string') {
     return false;
@@ -12,15 +77,27 @@ export function matchesStrictQuery(text, query) {
   const boundaryRegex = new RegExp(`(?:^|[^a-z0-9_])#?${escaped}(?:$|[^a-z0-9_])`, 'i');
   if (boundaryRegex.test(cleanText)) return true;
 
-  // 2. Token-level matching for multi-word queries: ALL significant tokens must be present
+  // 2. Token-level matching:
+  // For 2 tokens: both must match.
+  // For 3+ tokens: at least 2 significant tokens must match (relaxed semantic context).
   const tokens = cleanQ.split(/\s+/).filter(t => t.length >= 3);
-  if (tokens.length > 1) {
-    const hasAllTokens = tokens.every(tok => {
+  if (tokens.length === 2) {
+    return tokens.every(tok => {
       const tokEscaped = tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const tokRegex = new RegExp(`(?:^|[^a-z0-9_])#?${tokEscaped}(?:$|[^a-z0-9_])`, 'i');
       return tokRegex.test(cleanText);
     });
-    if (hasAllTokens) return true;
+  }
+  if (tokens.length > 2) {
+    let matchCount = 0;
+    for (const tok of tokens) {
+      const tokEscaped = tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const tokRegex = new RegExp(`(?:^|[^a-z0-9_])#?${tokEscaped}(?:$|[^a-z0-9_])`, 'i');
+      if (tokRegex.test(cleanText)) {
+        matchCount++;
+      }
+    }
+    return matchCount >= Math.min(2, tokens.length);
   }
 
   return false;
