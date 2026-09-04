@@ -61,6 +61,11 @@ describe('ckelepel CLI end-to-end interface commands & flags', () => {
     assert.ok(stdout.includes('--proxy <url>'));
   });
 
+  it('dataset command exhibits correct help', async () => {
+    const { stdout } = await execFileAsync('node', [binPath, 'dataset', '--help']);
+    assert.ok(stdout.includes('--db <path>'));
+  });
+
   it('profile fails gracefully on non-existent or invalid network target without throwing unhandled exception', async () => {
     try {
       await execFileAsync('node', [binPath, 'profile', 'an_impossible_fake_user_name_xyz_123456789']);

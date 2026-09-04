@@ -9,6 +9,7 @@ import {
   searchThreads,
   getPostReplies,
   resolveCookie,
+  ThreadsDatasetDB,
 } from '../src/index.js';
 import {
   formatProfileCsv,
@@ -30,6 +31,39 @@ function renderOutput(data, format, formatters) {
     return formatters.csv(data);
   }
   return formatters.stdout(data);
+}
+
+function saveToDataset(options, data, type) {
+  if (!options.dataset && !options.db) return null;
+  const db = new ThreadsDatasetDB(options.db);
+  const dsName = typeof options.dataset === 'string' ? options.dataset : 'default';
+
+  try {
+    if (type === 'profile') {
+      db.upsertProfile(data);
+      if (Array.isArray(data.recent_posts) && data.recent_posts.length > 0) {
+        db.upsertPosts(dsName, data.recent_posts);
+      }
+    } else if (type === 'posts') {
+      if (Array.isArray(data.posts)) {
+        db.upsertPosts(dsName, data.posts);
+      }
+    } else if (type === 'search') {
+      if (Array.isArray(data.results)) {
+        db.upsertPosts(dsName, data.results);
+      }
+    } else if (type === 'replies') {
+      if (data.rootPost) {
+        db.upsertPosts(dsName, [data.rootPost]);
+      }
+      if (Array.isArray(data.replies) && data.replies.length > 0) {
+        db.upsertReplies(data.rootPost?.id, data.replies);
+      }
+    }
+    return db;
+  } finally {
+    db.close();
+  }
 }
 
 function resolveProxy(cliProxy) {
@@ -60,6 +94,8 @@ program
   .option('--csv', 'Shortcut for --format csv')
   .option('-c, --cookie <string>', 'Threads session cookie (or env THREADS_COOKIE / COOKIE)')
   .option('--proxy <url>', 'Proxy URL (e.g. http://user:pass@host:port)')
+  .option('--dataset [name]', 'Save results into SQLite dataset database (default: "default")')
+  .option('--db <path>', 'Custom SQLite database file path')
   .action(async (username, options) => {
     try {
       const cookie = resolveCookie(options.cookie);
@@ -70,6 +106,8 @@ program
         cookie,
         proxy,
       });
+
+      saveToDataset(options, data, 'profile');
 
       let format = options.format;
       if (options.json) format = 'json';
@@ -96,6 +134,8 @@ program
   .option('--csv', 'Shortcut for --format csv')
   .option('-c, --cookie <string>', 'Threads session cookie (or env THREADS_COOKIE / COOKIE)')
   .option('--proxy <url>', 'Proxy URL (e.g. http://user:pass@host:port)')
+  .option('--dataset [name]', 'Save results into SQLite dataset database (default: "default")')
+  .option('--db <path>', 'Custom SQLite database file path')
   .action(async (username, options) => {
     try {
       const cookie = resolveCookie(options.cookie);
@@ -105,6 +145,8 @@ program
         cookie,
         proxy,
       });
+
+      saveToDataset(options, data, 'posts');
 
       let format = options.format;
       if (options.json) format = 'json';
@@ -132,6 +174,8 @@ program
   .option('--csv', 'Shortcut for --format csv')
   .option('-c, --cookie <string>', 'Threads session cookie (or env THREADS_COOKIE / COOKIE)')
   .option('--proxy <url>', 'Proxy URL (e.g. http://user:pass@host:port)')
+  .option('--dataset [name]', 'Save results into SQLite dataset database (default: "default")')
+  .option('--db <path>', 'Custom SQLite database file path')
   .action(async (query, options) => {
     try {
       const cookie = resolveCookie(options.cookie);
@@ -142,6 +186,8 @@ program
         cookie,
         proxy,
       });
+
+      saveToDataset(options, data, 'search');
 
       let format = options.format;
       if (options.json) format = 'json';
@@ -169,6 +215,8 @@ program
   .option('--csv', 'Shortcut for --format csv')
   .option('-c, --cookie <string>', 'Threads session cookie (or env THREADS_COOKIE / COOKIE)')
   .option('--proxy <url>', 'Proxy URL (e.g. http://user:pass@host:port)')
+  .option('--dataset [name]', 'Save results into SQLite dataset database (default: "default")')
+  .option('--db <path>', 'Custom SQLite database file path')
   .action(async (url_or_code, options) => {
     try {
       const cookie = resolveCookie(options.cookie);
@@ -180,6 +228,8 @@ program
         proxy,
       });
 
+      saveToDataset(options, data, 'replies');
+
       let format = options.format;
       if (options.json) format = 'json';
       if (options.csv) format = 'csv';
@@ -189,6 +239,30 @@ program
         csv: formatRepliesCsv,
       });
       console.log(output);
+    } catch (err) {
+      console.error(`[Error] ${err.message}`);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('dataset')
+  .description('Manage or inspect local SQLite dataset database')
+  .option('--db <path>', 'Custom SQLite database file path')
+  .action(async (options) => {
+    try {
+      const db = new ThreadsDatasetDB(options.db);
+      const datasets = db.listDatasets();
+      db.close();
+
+      console.log('=== Local Threads Datasets ===');
+      if (datasets.length === 0) {
+        console.log('No datasets found. Use --dataset <name> on scrape commands to collect posts.');
+      } else {
+        for (const ds of datasets) {
+          console.log(`- [${ds.name}] Posts: ${ds.post_count} | Updated: ${new Date(ds.updated_at * 1000).toISOString()}`);
+        }
+      }
     } catch (err) {
       console.error(`[Error] ${err.message}`);
       process.exit(1);

@@ -312,4 +312,43 @@ describe('ckelepel-threads pure engine tests', () => {
       'sessionid=xyz'
     );
   });
+
+  it('handles dataset database deduplication and upserts', async () => {
+    const { ThreadsDatasetDB } = await import('../src/index.js');
+    const path = await import('node:path');
+    const os = await import('node:os');
+    const fs = await import('node:fs');
+
+    const tempDb = path.join(os.tmpdir(), `test_ckelepel_${Date.now()}.db`);
+    const db = new ThreadsDatasetDB(tempDb);
+
+    const post1 = {
+      id: 'post_1001',
+      code: 'code1',
+      caption: 'Initial content',
+      like_count: 10,
+      author: { username: 'creator1' },
+    };
+
+    // First insert
+    const res1 = db.upsertPosts('ai_research', [post1]);
+    assert.equal(res1.inserted, 1);
+    assert.equal(res1.updated, 0);
+    assert.equal(res1.total_in_dataset, 1);
+
+    // Duplicate insert with updated likes
+    post1.like_count = 25;
+    const res2 = db.upsertPosts('ai_research', [post1]);
+    assert.equal(res2.inserted, 0);
+    assert.equal(res2.updated, 1);
+    assert.equal(res2.total_in_dataset, 1);
+
+    const datasets = db.listDatasets();
+    assert.equal(datasets.length, 1);
+    assert.equal(datasets[0].name, 'ai_research');
+    assert.equal(datasets[0].post_count, 1);
+
+    db.close();
+    if (fs.existsSync(tempDb)) fs.unlinkSync(tempDb);
+  });
 });

@@ -29,6 +29,8 @@ This document defines the strict Standard Operating Procedures (SOP), machine-re
 | **Batch Extract Timeline** | `ckelepel posts <username> --limit <n> --json` | Use `--limit 20..100` depending on context budget |
 | **Search Keywords / Hashtags**| `ckelepel search "<query>" --limit <n> --json` | Keep strict matching enabled by default; use `--no-strict` only if 0 results |
 | **Extract Post Discussion** | `ckelepel replies <url_or_code> --limit <n> --json`| Add `--no-tree` if only flat comment array is needed for sentiment/analysis |
+| **Dataset Ingestion & Deduplication** | `ckelepel search "<q>" --dataset <name> --json` | Automatically deduplicates and upserts items into local SQLite dataset |
+| **Inspect Datasets** | `ckelepel dataset` | List datasets and post counts |
 
 ---
 

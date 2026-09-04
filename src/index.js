@@ -40,3 +40,8 @@ export {
   parseCookieInput,
   DEFAULT_HEADERS,
 } from './http.js';
+
+export {
+  ThreadsDatasetDB,
+  getDefaultDbPath,
+} from './db.js';

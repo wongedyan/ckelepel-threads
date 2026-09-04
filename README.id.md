@@ -20,6 +20,7 @@ Aplikasi ini mengekstrak data langsung dari Meta Threads tanpa Puppeteer, Playwr
 - **Ekstraksi Media Lengkap**: Mengurai gambar resolusi tinggi, direct CDN video URL, thumbnail video, dan rich preview link.
 - **Pencarian Relevansi Tinggi (*Strict Query Filtering*)**: Fitur pencarian menyaring hasil yang benar-benar relevan dengan kata kunci atau tagar yang dicari.
 - **Pohon Komentar Hierarkis (*Reply Tree*)**: Menyusun komentar berbalas menjadi struktur pohon keluarga dan dapat ditampilkan langsung secara visual di terminal (ASCII tree).
+- **Penyimpanan Dataset SQLite Anti-Duplikat**: Opsi simpan langsung ke database dataset lokal (`--dataset <name>`). Mencegah data ganda dengan skema upsert otomatis.
 - **Format Output Fleksibel**: Mendukung tampilan teks rapi di terminal (stdout), objek terstruktur `JSON`, dan file siap spreadsheet `CSV`.
 - **Dapat Digunakan via CLI Maupun Script Library (ESM)**.
 
@@ -172,6 +173,24 @@ ckelepel replies Cx_example --no-tree
 - `--csv`: Shortcut untuk `--format csv`
 - `-c, --cookie <string>`: Cookie sesi Threads
 - `--proxy <url>`: URL proxy
+
+### 5. Simpan ke Dataset & Anti-Duplikasi (`--dataset [name]`)
+
+Kumpulkan ribuan postingan, profil, dan komentar ke dalam database dataset lokal SQLite tanpa khawatir data ganda. Mesin menggunakan mekanisme atomic `INSERT ... ON CONFLICT DO UPDATE`.
+
+```bash
+# Simpan postingan kreator ke dataset "kreator_teknologi"
+ckelepel posts zuck --limit 50 --dataset kreator_teknologi
+
+# Akumulasi hasil pencarian berkala ke dataset "tren_ai" tanpa duplikat
+ckelepel search "kecerdasan buatan" --limit 50 --dataset tren_ai
+ckelepel search "deepseek" --limit 50 --dataset tren_ai
+
+# Cek daftar dataset yang ada dan jumlah postingan di dalamnya
+ckelepel dataset
+```
+
+File database default disimpan di `~/.skelepel/threads_dataset.db`. Lokasi dapat disesuaikan menggunakan opsi `--db <path>` atau variabel env `THREADS_DB_PATH`.
 
 ---
 

@@ -20,6 +20,7 @@ It delivers instantaneous data extraction from Meta Threads without Puppeteer, P
 - **Rich Media & Link Extraction**: Fully normalizes images, high-resolution direct video CDN URLs, video thumbnails, and rich link preview cards.
 - **Strict Query Filtering**: Optional strict keyword filtering for search queries, matching full phrases, hashtags, and significant tokens while rejecting irrelevant noise.
 - **Nested Reply Tree Construction**: Reconstructs hierarchical threaded replies into structured child nodes and renders beautiful ASCII tree views in your terminal.
+- **Local SQLite Dataset Storage & Deduplication**: Built-in deduplication via `--dataset <name>` flag, safely appending and upserting data to a local SQLite database without duplicates.
 - **Flexible Output Formats**: Supports human-readable terminal stdout, structured `JSON`, and spreadsheet-ready `CSV` exports.
 - **Programmatic & CLI Ready**: Use as a global command-line utility or import cleanly as a modern ESM library in your own Node.js applications.
 
@@ -172,6 +173,24 @@ ckelepel replies Cx_example --no-tree
 - `--csv`: Shortcut for `--format csv`
 - `-c, --cookie <string>`: Threads session cookie
 - `--proxy <url>`: Proxy URL
+
+### 5. Dataset Storage & Deduplication (`--dataset [name]`)
+
+Collect vast amounts of posts, profiles, and comment trees without worrying about duplicates. The engine uses an atomic `INSERT ... ON CONFLICT DO UPDATE` strategy powered by Node's built-in SQLite engine.
+
+```bash
+# Save creator posts directly to dataset "tech_creators"
+ckelepel posts zuck --limit 50 --dataset tech_creators
+
+# Continuously accumulate search results into "ai_trends" dataset without duplicates
+ckelepel search "artificial intelligence" --limit 50 --dataset ai_trends
+ckelepel search "deepseek" --limit 50 --dataset ai_trends
+
+# Inspect existing local datasets and item counts
+ckelepel dataset
+```
+
+Default database file is located at `~/.skelepel/threads_dataset.db`. You can override this using `--db <path>` or the `THREADS_DB_PATH` environment variable.
 
 ---
 
