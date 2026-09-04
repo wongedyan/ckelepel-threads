@@ -3,7 +3,7 @@
  * Pure standalone direct HTTP Meta Threads scraper
  */
 
-export const VERSION = '1.0.0';
+export const VERSION = '0.1.0';
 
 export {
   getProfile,

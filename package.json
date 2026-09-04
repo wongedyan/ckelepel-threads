@@ -1,6 +1,6 @@
 {
   "name": "ckelepel-threads",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Clean, standalone, zero-dependency Meta Threads scraper and CLI using direct HTTP & undici",
   "main": "src/index.js",
   "type": "module",
@@ -26,6 +26,6 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }

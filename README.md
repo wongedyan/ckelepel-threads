@@ -1,7 +1,7 @@
 # ckelepel-threads
 
-[![CI / Test Suite](https://img.shields.io/badge/tests-23%20passed-brightgreen.svg)](https://github.com/wongedyan/ckelepel-threads)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-blue.svg)](https://nodejs.org/)
+[![CI / Test Suite](https://img.shields.io/badge/tests-24%20passed-brightgreen.svg)](https://github.com/wongedyan/ckelepel-threads)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D22.0.0-blue.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Pure ESM](https://img.shields.io/badge/module%20type-pure%20ESM-orange.svg)](https://nodejs.org/api/esm.html)
 

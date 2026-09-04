@@ -4,7 +4,7 @@ import { VERSION, getProfile, getUserPosts, searchThreads, getPostReplies } from
 
 describe('ckelepel-threads scaffolding verification', () => {
   it('exports semantic version', () => {
-    assert.equal(VERSION, '1.0.0');
+    assert.equal(VERSION, '0.1.0');
   });
 
   it('exports core scraper function signatures', () => {
