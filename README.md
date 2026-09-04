@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Pure ESM](https://img.shields.io/badge/module%20type-pure%20ESM-orange.svg)](https://nodejs.org/api/esm.html)
 
+> **English Documentation** | [Dokumentasi Bahasa Indonesia](README.id.md)
+
 **ckelepel-threads** is a high-performance, standalone, zero-browser Meta Threads scraper engine and CLI built on Node.js and [undici](https://github.com/nodejs/undici).
 
 It delivers instantaneous data extraction from Meta Threads without Puppeteer, Playwright, or browser overhead, providing structured profile intelligence, timeline posts with full media parsing, keyword/hashtag search with strict filtering, and nested conversation reply trees.
