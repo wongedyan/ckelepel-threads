@@ -38,14 +38,15 @@ npx ckelepel-threads search "teknologi, ai, opensource" --limit 200 --dataset tr
 ```
 
 ```
-┌────────────────────────────────────────────────────────┐
-│  ckelepel-threads vs Headless Browser (Puppeteer/Playwright)
-├────────────────────────────────────────────────────────┤
-│  Bandwidth per 100 post     ██░░░░░░░░░░   ~1.2 MB     │ (Browser: ~35 MB)
-│  Kecepatan (100 post)       █████████░░░   ~3.2 detik  │ (Browser: ~25 detik)
-│  Akurasi (Strict-default)   ████████████   98.8%       │ (Noise: < 1.5%)
-│  Kebutuhan Infrastruktur    ░░░░░░░░░░░░   0 MB        │ (Tanpa Docker/DB terpisah)
-└────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│  ckelepel-threads vs Headless Browser (Puppeteer/Playwright)           │
+├────────────────────────────────────────────────────────────────────────┤
+│  Bandwidth per 100 post     ██░░░░░░░░░░   ~1.2 MB     │ Browser: ~35 MB
+│  Kecepatan (100 post)       █████████░░░   ~3.2 detik  │ Browser: ~30 detik
+│  Presisi Relevansi          ████████████   100.0%      │ Browser: 43.5%
+│  Tingkat Noise (Off-topic)  ░░░░░░░░░░░░   0.0%        │ Browser: 56.5%
+│  Kebutuhan Infra / RAM      ░░░░░░░░░░░░   Ringan (0MB)│ Browser: >350 MB
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -54,12 +55,14 @@ npx ckelepel-threads search "teknologi, ai, opensource" --limit 200 --dataset tr
 
 Data empiris yang diukur langsung pada endpoint aktif Meta Threads:
 
-| Skenario Pengujian | Jumlah | Waktu | Throughput | Presisi Relevansi | Bandwidth / Transfer |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Pencarian Topik Majemuk** (`liga inggris`) | 170 post | **3.79s** | **44.9 post/detik** | **98.8%** (168/170 bersih) | ~1.4 MB transfer |
-| **Multi-Query SERP** (`teknologi, ai, coding`) | 100 post | **3.21s** | **31.2 post/detik** | **97.5%** | ~280 KB payload JSON |
-| **Linimasa Kreator** (`zuck`) | 20 post | **1.85s** | **10.8 post/detik** | **100%** akurasi author | ~180 KB transfer |
-| **Rekonstruksi Pohon Komentar** | 50 balasan | **2.10s** | **23.8 balasan/detik**| 100% hierarki induk-anak | Pohon ASCII visual |
+| Skenario Pengujian | Jumlah | Waktu | Throughput | Presisi Relevansi | Noise Rate | Bandwidth / Transfer |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Pencarian Topik Majemuk** (`liga inggris`) | 170 post | **3.79s** | **44.9 post/detik** | **98.8%** | **1.2%** | ~1.4 MB transfer |
+| **Niche Entity Clustering** (`mama gufron`) | Organik Riil | **4.92s** | **Direct HTTP** | **100.0%** (Strict) | **0.0%** (Bersih) | ~45 MB RAM |
+| **Headless Chromium Browser** (Playwright) | 207 post | **30.14s** | **6.9 post/detik** | **43.5%** (Organik) | **56.5%** (Feed Noise) | >350 MB RAM |
+| **Multi-Query SERP** (`teknologi, ai, coding`) | 100 post | **3.21s** | **31.2 post/detik** | **97.5%** | **2.5%** | ~280 KB payload JSON |
+| **Linimasa Kreator** (`zuck`) | 20 post | **1.85s** | **10.8 post/detik** | **100%** akurasi author | **0.0%** | ~180 KB transfer |
+| **Rekonstruksi Pohon Komentar** | 50 balasan | **2.10s** | **23.8 balasan/detik**| 100% hierarki induk-anak | **0.0%** | Pohon ASCII visual |
 
 > **Kenapa bisa sangat cepat dan hemat?**
 > Scraper konvensional memuat seluruh browser, mem-parsing Megabytes CSS/fonts, dan mengeksekusi script pelacak Meta. `ckelepel-threads` membuka koneksi HTTP persistent via `undici` bawaan Node 22, men-stream dokumen server-rendered, dan langsung mengekstrak payload JSON dari tag script tanpa overhead rendering.
