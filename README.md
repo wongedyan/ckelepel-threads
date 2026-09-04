@@ -218,26 +218,6 @@ for (const post of results) {
 
 ---
 
-## Testing
-
-Verified with 100% pass rate on Node.js native test runner (`node:test`):
-
-```bash
-npm test
-```
-
-```
-✔ ckelepel CLI end-to-end interface commands & flags
-✔ ckelepel-threads CLI formatting & CSV tests
-✔ ckelepel-threads pure engine tests
-✔ ckelepel-threads scaffolding verification
-ℹ tests 26
-ℹ pass 26
-ℹ fail 0
-```
-
----
-
 ## License
 
 MIT License © 2026 [wongedyan](https://github.com/wongedyan)
