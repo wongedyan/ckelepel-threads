@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Pure ESM](https://img.shields.io/badge/module%20type-pure%20ESM-orange.svg)](https://nodejs.org/api/esm.html)
 
-> [English Documentation](README.md) | **Dokumentasi Bahasa Indonesia**
+> [English Documentation](README.md) | **Dokumentasi Bahasa Indonesia** | [Panduan AI Agents](AGENTS.md)
 
 **ckelepel-threads** adalah scraper Meta Threads mandiri (*zero-browser standalone*) berkecepatan tinggi yang dilengkapi dengan CLI dan library API berbasis Node.js dan [undici](https://github.com/nodejs/undici).
 
