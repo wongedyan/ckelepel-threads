@@ -174,23 +174,34 @@ ckelepel dataset
 
 ## Authentication & Proxy Support
 
-### Cookies
-Anonymous scraping works out of the box. For higher rate limits or private endpoints, provide your session cookie:
+Both cookies and proxies are **100% optional**. `ckelepel-threads` works out of the box with zero configuration.
+
+| Mode | Setup Needed? | Best For | Behavior & Limits |
+| :--- | :--- | :--- | :--- |
+| **No Cookies & No Proxy (Default)** | **None (0 steps)** | Everyday scraping, creator research, topic discovery | Fastest connection speed directly to Meta servers. Public posts, profiles, and initial replies work instantly. |
+| **With Cookies** | Optional (`--cookie`) | High-volume batch ingestion, private account access | Higher request-per-minute (RPM) limits and access to authenticated user contexts. |
+| **With Proxy** | Optional (`--proxy`) | Enterprise scraping, scraping thousands of posts continuously | Rotates network IPs to avoid rate limits (HTTP 429) across high-concurrency runs. |
+
+### 1. Using Cookies (Optional)
+
+Anonymous scraping works out of the box. If you want higher volume quotas or need to scrape behind login walls:
 ```bash
-# CLI flag (accepts raw string or path to JSON/txt cookie file)
+# 1. Via CLI flag (accepts raw string or path to JSON/txt cookie file)
 ckelepel profile zuck --cookie "./cookies.json"
 
-# Or environment variables
+# 2. Or via environment variables
 export THREADS_COOKIE="sessionid=...; csrftoken=...;"
 ckelepel posts zuck
 ```
 
-### Proxies
+### 2. Using Proxies (Optional)
+
+By default, the engine connects directly via your current network. To route traffic through datacenter or residential proxies:
 ```bash
-# Via CLI flag
+# 1. Via CLI flag
 ckelepel search "tech" --proxy "http://user:pass@proxy.example.com:8000"
 
-# Via standard environment variables
+# 2. Or via standard environment variables
 export HTTPS_PROXY="http://user:pass@proxy.example.com:8000"
 ckelepel search "tech"
 ```

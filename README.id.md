@@ -167,23 +167,34 @@ ckelepel dataset
 
 ## Pengaturan Cookie & Proxy
 
-### Cookies
-Scraping anonim bekerja tanpa login. Untuk batas request yang lebih tinggi:
+Penggunaan cookie dan proxy bersifat **100% opsional**. `ckelepel-threads` langsung bisa digunakan tanpa konfigurasi apa pun.
+
+| Mode | Perlu Pengaturan? | Paling Cocok Untuk | Perilaku & Batasan |
+| :--- | :--- | :--- | :--- |
+| **Tanpa Cookie & Tanpa Proxy (Default)** | **Tidak Ada (0 langkah)** | Scraping harian, riset kreator, pencarian topik | Kecepatan koneksi maksimal langsung ke server Meta. Profil, postingan publik, dan komentar langsung terambil. |
+| **Dengan Cookie** | Opsional (`--cookie`) | Ingesti data skala besar, akses profil privat | Batas kuota request per menit (RPM) lebih longgar dan membawa konteks akun terotentikasi. |
+| **Dengan Proxy** | Opsional (`--proxy`) | Scraping masif nonstop ribuan data | Merotasi alamat IP jaringan agar tidak terkena limit rate (HTTP 429) dari Meta. |
+
+### 1. Menggunakan Cookie (Opsional)
+
+Scraping anonim langsung berjalan tanpa login. Jika Anda membutuhkan kuota yang lebih longgar atau mengakses endpoint login:
 ```bash
-# Via flag CLI (string langsung atau path file JSON/txt)
+# 1. Melalui opsi CLI flag (bisa string langsung atau path file JSON/txt)
 ckelepel profile zuck --cookie "./cookies.json"
 
-# Atau via environment variable
+# 2. Atau melalui environment variable
 export THREADS_COOKIE="sessionid=...; csrftoken=...;"
 ckelepel posts zuck
 ```
 
-### Proxy
+### 2. Menggunakan Proxy (Opsional)
+
+Secara default, scraper langsung menggunakan jaringan internet lokal Anda. Untuk mengalirkan lalu lintas melalui proxy:
 ```bash
-# Via flag CLI
+# 1. Melalui opsi CLI flag
 ckelepel search "tech" --proxy "http://user:pass@proxy.example.com:8000"
 
-# Atau via environment variable standar
+# 2. Atau melalui environment variable standar sistem
 export HTTPS_PROXY="http://user:pass@proxy.example.com:8000"
 ckelepel search "tech"
 ```
