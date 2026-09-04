@@ -190,7 +190,7 @@ ckelepel search "deepseek" --limit 50 --dataset tren_ai
 ckelepel dataset
 ```
 
-File database default disimpan di `~/.skelepel/threads_dataset.db`. Lokasi dapat disesuaikan menggunakan opsi `--db <path>` atau variabel env `THREADS_DB_PATH`.
+File database default disimpan di direktori proyek sebagai `./threads_dataset.db`. Lokasi dapat disesuaikan menggunakan opsi `--db <path>` atau variabel env `THREADS_DB_PATH`.
 
 ---
 

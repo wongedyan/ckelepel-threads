@@ -190,7 +190,7 @@ ckelepel search "deepseek" --limit 50 --dataset ai_trends
 ckelepel dataset
 ```
 
-Default database file is located at `~/.skelepel/threads_dataset.db`. You can override this using `--db <path>` or the `THREADS_DB_PATH` environment variable.
+Default database file is located in the project directory as `./threads_dataset.db`. You can override this using `--db <path>` or the `THREADS_DB_PATH` environment variable.
 
 ---
 

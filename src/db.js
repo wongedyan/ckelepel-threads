@@ -5,7 +5,8 @@ import { DatabaseSync } from 'node:sqlite';
 
 /**
  * Get default path for ckelepel-threads dataset database.
- * Stored in ~/.skelepel/threads_dataset.db or configurable via env / parameter.
+ * Stored in ./threads_dataset.db (current working directory / project dir)
+ * or configurable via THREADS_DB_PATH / DATASET_DB_PATH environment variables.
  */
 export function getDefaultDbPath() {
   const custom = process.env.THREADS_DB_PATH || process.env.DATASET_DB_PATH;
@@ -16,12 +17,7 @@ export function getDefaultDbPath() {
     }
     return path.resolve(custom);
   }
-  const homeDir = os.homedir();
-  const dir = path.join(homeDir, '.skelepel');
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-  return path.join(dir, 'threads_dataset.db');
+  return path.resolve(process.cwd(), 'threads_dataset.db');
 }
 
 export class ThreadsDatasetDB {

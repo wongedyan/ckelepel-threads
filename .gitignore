@@ -5,3 +5,6 @@ node_modules/
 .threads_cookies*.json
 dist/
 coverage/
+*.db
+*.db-wal
+*.db-shm
