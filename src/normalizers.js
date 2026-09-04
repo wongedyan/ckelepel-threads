@@ -130,14 +130,21 @@ export function normalizePost(post) {
   const quoteCount = post.text_post_app_info?.quote_count || 0;
 
   return {
-    id: String(post.pk || post.id),
+    id: String(post.pk || post.id || ''),
     code: post.code || '',
     caption: post.caption?.text || post.text || '',
     topic,
     user: {
       username: post.user?.username || '',
       full_name: post.user?.full_name || '',
-      pk: post.user?.pk || '',
+      pk: String(post.user?.pk || post.user?.id || ''),
+      profile_pic_url: post.user?.profile_pic_url || '',
+      is_verified: !!post.user?.is_verified,
+    },
+    author: {
+      id: String(post.user?.pk || post.user?.id || ''),
+      username: post.user?.username || '',
+      full_name: post.user?.full_name || '',
       profile_pic_url: post.user?.profile_pic_url || '',
       is_verified: !!post.user?.is_verified,
     },
