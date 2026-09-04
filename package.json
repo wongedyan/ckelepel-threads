@@ -1,0 +1,31 @@
+{
+  "name": "ckelepel-threads",
+  "version": "1.0.0",
+  "description": "Clean, standalone, zero-dependency Meta Threads scraper and CLI using direct HTTP & undici",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "ckelepel": "./bin/ckelepel.js"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.js"
+  },
+  "keywords": [
+    "threads",
+    "scraper",
+    "cli",
+    "undici",
+    "meta",
+    "crawler"
+  ],
+  "author": "wongedyan",
+  "license": "MIT",
+  "dependencies": {
+    "undici": "^6.21.1",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
