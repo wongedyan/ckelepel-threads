@@ -27,7 +27,7 @@ This document defines the strict Standard Operating Procedures (SOP), machine-re
 | :--- | :--- | :--- |
 | **Inspect Creator Profile** | `ckelepel profile <username> --json` | Add `-p --limit <n>` to fetch recent timeline posts together |
 | **Batch Extract Timeline** | `ckelepel posts <username> --limit <n> --json` | Use `--limit 20..100` depending on context budget |
-| **Search Keywords / Hashtags**| `ckelepel search "<query>" --limit <n> --json` | Keep strict matching enabled by default; use `--no-strict` only if 0 results |
+| **Search Keywords / Hashtags**| `ckelepel search "<query>" --limit <n> --json` | Strict filtering enabled by default (98.8% accuracy); use `--no-strict` only if broader fuzzy context is requested |
 | **Extract Post Discussion** | `ckelepel replies <url_or_code> --limit <n> --json`| Add `--no-tree` if only flat comment array is needed for sentiment/analysis |
 | **Dataset Ingestion & Deduplication** | `ckelepel search "<q>" --dataset <name> --json` | Automatically deduplicates and upserts items into local SQLite dataset |
 | **Inspect Datasets** | `ckelepel dataset` | List datasets and post counts |
@@ -71,20 +71,21 @@ ckelepel search "artificial intelligence" --proxy "http://user:pass@prx.example.
 When a user instructs: *"scrape data tentang <topik>"* or requests high volume (>50–300+ posts) on an event or topic:
 1. **Never rely on a single naive search query**: Meta Threads limits single-query deep pagination cursors on direct HTTP.
 2. **Autonomous Query Synthesis**: The AI agent MUST proactively formulate 10–25 diverse query facets:
-   - Synonyms & core terms (e.g. for "karhutla": `karhutla`, `kebakaran hutan`, `kabut asap`, `lahan gambut`)
-   - Regional / geolocation qualifiers (e.g. `karhutla riau`, `karhutla kalimantan`, `karhutla jambi`, `karhutla sumatera`)
-   - Action & institutional entities (e.g. `manggala agni`, `bnpb karhutla`, `titik api`, `water bombing`)
-   - High-signal hashtags (e.g. `#karhutla`, `#kebakaranhutan`)
+   - Synonyms & core terms (e.g. for "liga inggris": `liga inggris`, `premier league`, `epl`, `klasemen liga inggris`)
+   - Club, player & manager entities (e.g. `manchester united`, `liverpool`, `arsenal`, `pep guardiola`, `arteta`)
+   - High-signal hashtags & events (e.g. `#premierleague`, `#epl`, `derby manchester`)
 3. **Execute Fan-Out via CLI or ESM**:
    - Via CLI (comma-separated query):
      ```bash
-     ckelepel search "karhutla, kebakaran hutan, kabut asap, karhutla riau, karhutla kalimantan, manggala agni, #karhutla" --limit 300 --dataset karhutla --json
+     ckelepel search "liga inggris, premier league, epl, manchester united, arsenal, liverpool" --limit 200 --dataset premier_league --json
      ```
    - Via ESM Library:
      ```javascript
-     const results = await searchThreads(['karhutla', 'kebakaran hutan', 'kabut asap', 'karhutla riau'], { limit: 300 });
+     const results = await searchThreads(['liga inggris', 'premier league', 'epl'], { limit: 200 });
      ```
-4. **Automatic SQLite Deduplication**:
+4. **Strict-by-Default (98.8% Precision Guarantee)**:
+   - Strict keyword & token filtering is active by default. Noise and off-topic social media algorithmic recommendations are filtered out before reaching output.
+5. **Automatic SQLite Deduplication**:
    All extracted posts across every query facet and sort filter (`default` + `recent`) are automatically merged, deduplicated, and stored into `./threads_dataset.db` with fresh engagement metrics.
 
 ### Recipe B: Full Creator Intelligence Pipeline

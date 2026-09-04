@@ -631,15 +631,21 @@ export async function searchThreads(query, options = {}) {
   }
 
   // Filter & Sort
+  // Matches against any query facet in multi-query mode
+  const matchesAnyQuery = (caption) => {
+    if (!caption) return false;
+    return queries.some((q) => matchesStrictQuery(caption, q));
+  };
+
   collected.sort((a, b) => {
-    const aMatch = matchesStrictQuery(a.caption, clean) ? 1 : 0;
-    const bMatch = matchesStrictQuery(b.caption, clean) ? 1 : 0;
+    const aMatch = matchesAnyQuery(a.caption) ? 1 : 0;
+    const bMatch = matchesAnyQuery(b.caption) ? 1 : 0;
     if (aMatch !== bMatch) return bMatch - aMatch;
     return (b.like_count + b.reply_count) - (a.like_count + a.reply_count);
   });
 
   const finalFiltered = isStrict
-    ? collected.filter((item) => matchesStrictQuery(item.caption, clean))
+    ? collected.filter((item) => matchesAnyQuery(item.caption))
     : collected;
 
   const results = (finalFiltered.length > 0 ? finalFiltered : collected).slice(0, limit);
