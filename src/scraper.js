@@ -429,10 +429,15 @@ export async function searchThreads(query, options = {}) {
     facetUrls.push(`https://www.threads.net/search?q=${encodeURIComponent(q)}&serp_type=default&filter=recent`);
   }
 
+  // Concurrently fetch facets; abort remaining in-flight requests as soon as target limit is fulfilled
+  const collected = [];
+  const controller = new AbortController();
+
   const fetchPromises = facetUrls.map((url) =>
     fetchWithRetry(
       url,
       {
+        signal: controller.signal,
         headers: {
           Accept:
             'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
@@ -442,26 +447,31 @@ export async function searchThreads(query, options = {}) {
       },
       { fetchFn: options.fetchFn }
     )
-      .then((r) => (r.ok ? r.text() : ''))
+      .then((r) => {
+        if (!r.ok) return '';
+        return r.text().then((html) => {
+          if (!html) return '';
+          const items = extractPostsFromHtml(html);
+          for (const item of items) {
+            if (!allPosts.has(item.id)) {
+              allPosts.set(item.id, item);
+              collected.push(item);
+              if (typeof options.onProgress === 'function') {
+                options.onProgress(collected.length, limit);
+              }
+              if (collected.length >= limit) {
+                controller.abort();
+                break;
+              }
+            }
+          }
+          return html;
+        });
+      })
       .catch(() => '')
   );
 
   const htmlResults = await Promise.all(fetchPromises);
-
-  const collected = [];
-  for (const html of htmlResults) {
-    if (!html) continue;
-    const items = extractPostsFromHtml(html);
-    for (const item of items) {
-      if (!allPosts.has(item.id)) {
-        allPosts.set(item.id, item);
-        collected.push(item);
-        if (typeof options.onProgress === 'function') {
-          options.onProgress(collected.length, limit);
-        }
-      }
-    }
-  }
 
   const clean = queries[0];
 
