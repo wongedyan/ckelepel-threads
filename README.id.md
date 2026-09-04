@@ -129,6 +129,9 @@ ckelepel search "kecerdasan buatan"
 # Cari dengan limit tertentu dalam format JSON
 ckelepel search "open source" --limit 30 --json
 
+# Pencarian multi-kueri sekaligus (fan-out / query expansion)
+ckelepel search "karhutla, kebakaran hutan, kabut asap, lahan gambut" --limit 100 --dataset karhutla --json
+
 # Nonaktifkan filter ketat untuk hasil yang lebih luas (fuzzy)
 ckelepel search "machine learning" --no-strict --json
 

@@ -163,10 +163,10 @@ program
     }
   });
 
-program
+  program
   .command('search')
-  .description('Search posts on Threads')
-  .argument('<query>', 'Search keyword or query')
+  .description('Search posts on Threads (accepts single query or comma-separated multi-queries)')
+  .argument('<query>', 'Search keyword, phrase, or comma-separated multi-queries (e.g. "ai, machine learning")')
   .option('-l, --limit <number>', 'Maximum posts to fetch', (val) => parseInt(val, 10), 20)
   .option('--no-strict', 'Disable strict keyword matching filter')
   .option('-o, --format <type>', 'Output format: stdout, json, csv', 'stdout')
@@ -180,7 +180,8 @@ program
     try {
       const cookie = resolveCookie(options.cookie);
       const proxy = resolveProxy(options.proxy);
-      const data = await searchThreads(query, {
+      const parsedQueries = query.includes(',') ? query.split(',').map(s => s.trim()).filter(Boolean) : query;
+      const data = await searchThreads(parsedQueries, {
         limit: options.limit,
         strict: options.strict,
         cookie,

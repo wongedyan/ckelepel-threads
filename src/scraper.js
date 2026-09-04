@@ -409,19 +409,25 @@ export async function getUserPosts(username, options = {}) {
 }
 
 export async function searchThreads(query, options = {}) {
-  const limit = options.limit || 20;
-  const isStrict = options.strict !== false;
-  const clean = query.trim();
-  if (!clean) {
+  // Support both single query string and array of multi-queries (e.g. fan-out search)
+  const queries = Array.isArray(query)
+    ? query.map((q) => String(q).trim()).filter(Boolean)
+    : [String(query || '').trim()].filter(Boolean);
+
+  if (queries.length === 0) {
     throw new Error('Search query is required');
   }
 
+  const limit = options.limit || 20;
+  const isStrict = options.strict !== false;
   const allPosts = new Map();
 
-  const facetUrls = [
-    `https://www.threads.com/search?q=${encodeURIComponent(clean)}&serp_type=default`,
-    `https://www.threads.com/search?q=${encodeURIComponent(clean)}&serp_type=default&filter=recent`,
-  ];
+  // If multiple queries provided, run multi-query fan-out across queries & facets
+  const facetUrls = [];
+  for (const q of queries) {
+    facetUrls.push(`https://www.threads.net/search?q=${encodeURIComponent(q)}&serp_type=default`);
+    facetUrls.push(`https://www.threads.net/search?q=${encodeURIComponent(q)}&serp_type=default&filter=recent`);
+  }
 
   const fetchPromises = facetUrls.map((url) =>
     fetchWithRetry(
@@ -457,7 +463,9 @@ export async function searchThreads(query, options = {}) {
     }
   }
 
-  // Sequential GraphQL cursor pagination if limit not reached
+  const clean = queries[0];
+
+  // Sequential GraphQL cursor pagination if single query and limit not reached
   if (collected.length < limit) {
     try {
       const initUrl = facetUrls[0];

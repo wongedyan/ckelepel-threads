@@ -65,9 +65,29 @@ ckelepel search "artificial intelligence" --proxy "http://user:pass@prx.example.
 
 ---
 
-## 4. Multi-Step Pipelines & Recipes for Agents
+### 4. Multi-Step Pipelines & Recipes for Agents
 
-### Recipe A: Full Creator Intelligence Pipeline
+### Recipe A: Autonomous Topic Expansion & Multi-Query Fan-Out (e.g. "tentang <topik>")
+When a user instructs: *"scrape data tentang <topik>"* or requests high volume (>50–300+ posts) on an event or topic:
+1. **Never rely on a single naive search query**: Meta Threads limits single-query deep pagination cursors on direct HTTP.
+2. **Autonomous Query Synthesis**: The AI agent MUST proactively formulate 10–25 diverse query facets:
+   - Synonyms & core terms (e.g. for "karhutla": `karhutla`, `kebakaran hutan`, `kabut asap`, `lahan gambut`)
+   - Regional / geolocation qualifiers (e.g. `karhutla riau`, `karhutla kalimantan`, `karhutla jambi`, `karhutla sumatera`)
+   - Action & institutional entities (e.g. `manggala agni`, `bnpb karhutla`, `titik api`, `water bombing`)
+   - High-signal hashtags (e.g. `#karhutla`, `#kebakaranhutan`)
+3. **Execute Fan-Out via CLI or ESM**:
+   - Via CLI (comma-separated query):
+     ```bash
+     ckelepel search "karhutla, kebakaran hutan, kabut asap, karhutla riau, karhutla kalimantan, manggala agni, #karhutla" --limit 300 --dataset karhutla --json
+     ```
+   - Via ESM Library:
+     ```javascript
+     const results = await searchThreads(['karhutla', 'kebakaran hutan', 'kabut asap', 'karhutla riau'], { limit: 300 });
+     ```
+4. **Automatic SQLite Deduplication**:
+   All extracted posts across every query facet and sort filter (`default` + `recent`) are automatically merged, deduplicated, and stored into `./threads_dataset.db` with fresh engagement metrics.
+
+### Recipe B: Full Creator Intelligence Pipeline
 1. Run `ckelepel profile <username> -p -l 10 --json > /tmp/profile.json`
 2. Parse `.profile` for follower count, bio links, and verified status.
 3. If high engagement detected in `.recent_posts[]`, iterate over post codes to extract conversation replies:
@@ -75,7 +95,7 @@ ckelepel search "artificial intelligence" --proxy "http://user:pass@prx.example.
    ckelepel replies <post_code> --limit 50 --json > /tmp/replies_<post_code>.json
    ```
 
-### Recipe B: Brand Mention & Social Listening Pipeline
+### Recipe C: Brand Mention & Social Listening Pipeline
 1. Execute search query:
    ```bash
    ckelepel search "<brand_name>" --limit 50 --json > /tmp/search.json
@@ -86,7 +106,7 @@ ckelepel search "artificial intelligence" --proxy "http://user:pass@prx.example.
    ```
 3. Extract unique author IDs and post codes for engagement metrics analysis.
 
-### Recipe C: Thread Tree Visualizer & LLM Context Feeding
+### Recipe D: Thread Tree Visualizer & LLM Context Feeding
 When building context for an LLM summarizer:
 ```bash
 # Obtain structured tree + ASCII diagram

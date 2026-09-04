@@ -129,6 +129,9 @@ ckelepel search "artificial intelligence"
 # Search with custom limit in JSON format
 ckelepel search "open source" --limit 30 --json
 
+# Multi-query fan-out search (comma-separated query expansion)
+ckelepel search "karhutla, forest fire, smoke haze, peatland" --limit 100 --dataset karhutla --json
+
 # Disable strict filtering to capture broader fuzzy results
 ckelepel search "machine learning" --no-strict --json
 
