@@ -3,7 +3,7 @@ import { fetch as undiciFetch, ProxyAgent } from 'undici';
 
 export const SEARCH_DOC_ID = '28488931787378929';
 export const PROFILE_POSTS_DOC_ID = '28060185173641715';
-export const REPLIES_DOC_ID = '37791490057164579';
+export const REPLIES_DOC_ID = '27798529199846702';
 export const THREADS_GRAPHQL_ENDPOINT = 'https://www.threads.com/graphql/query';
 
 export const DEFAULT_HEADERS = {

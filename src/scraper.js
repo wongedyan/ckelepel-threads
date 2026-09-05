@@ -6,6 +6,7 @@ import {
   fetchWithRetry,
   sleep,
   jitterDelay,
+  resolveCookie,
 } from './http.js';
 import {
   matchesStrictQuery,
@@ -757,11 +758,21 @@ export async function getPostReplies(target, options = {}) {
     const raw = match[1];
     if (
       raw.includes('BarcelonaPostPageDirectQueryRelayPreloader') ||
+      raw.includes('BarcelonaPermalinkMobilePostColumnPageQueryRelayPreloader') ||
+      raw.includes('BarcelonaPostColumnPageQueryRelayPreloader') ||
       raw.includes('RelayPrefetchedStreamCache')
     ) {
       try {
         const cleaned = raw.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         const parsed = JSON.parse(cleaned);
+
+        // Check if root media is present in mobile post column payload
+        const media = parsed.require?.[0]?.[3]?.[0]?.__bbox?.require?.[0]?.[3]?.[1]?.__bbox?.result?.data?.media;
+        if (media && media.caption && !rootPost) {
+          rootPost = normalizePost(media);
+          targetPostId = String(media.pk || rootPost.id).split('_')[0];
+        }
+
         function findEdgesInBbox(obj) {
           if (!obj || typeof obj !== 'object') return null;
           if (obj.data && obj.data.edges) return obj.data;
@@ -799,9 +810,24 @@ export async function getPostReplies(target, options = {}) {
       return null;
     }
     while ((fbMatch = fallbackRegex.exec(html)) !== null) {
-      if (fbMatch[1].includes('BarcelonaPostPageDirectQueryRelayPreloader')) {
+      const content = fbMatch[1];
+      if (
+        (content.includes('BarcelonaPermalinkMobilePostColumnPageQueryRelayPreloader') ||
+         content.includes('BarcelonaPostColumnPageQueryRelayPreloader')) &&
+        content.includes('RelayPrefetchedStreamCache')
+      ) {
         try {
-          const parsed = JSON.parse(fbMatch[1]);
+          const parsed = JSON.parse(content);
+          const media = parsed.require?.[0]?.[3]?.[0]?.__bbox?.require?.[0]?.[3]?.[1]?.__bbox?.result?.data?.media;
+          if (media && media.caption && !rootPost) {
+            rootPost = normalizePost(media);
+            targetPostId = String(media.pk || rootPost.id).split('_')[0];
+          }
+        } catch {}
+      }
+      if (content.includes('BarcelonaPostPageDirectQueryRelayPreloader')) {
+        try {
+          const parsed = JSON.parse(content);
           const dataObj = findEdges(parsed);
           if (dataObj && dataObj.edges) {
             for (const edge of dataObj.edges) {
@@ -821,7 +847,11 @@ export async function getPostReplies(target, options = {}) {
   }
 
   // GraphQL cursor pagination loop
-  while (replies.length < limit && hasNextPage && currentCursor && targetPostId) {
+  if (!hasNextPage && targetPostId) {
+    hasNextPage = true;
+  }
+
+  while (replies.length < limit && hasNextPage && targetPostId) {
     try {
       const variables = {
         postID: targetPostId,
@@ -835,11 +865,13 @@ export async function getPostReplies(target, options = {}) {
         __relay_internal__pv__BarcelonaHasCommunityPermalinkPivotsrelayprovider: false,
         __relay_internal__pv__BarcelonaHasInsightsPermalinkUFIrelayprovider: false,
         __relay_internal__pv__BarcelonaHasDearAlgoConsumptionrelayprovider: true,
+        __relay_internal__pv__BarcelonaHasMetaAiContentAttachmentsrelayprovider: false,
         __relay_internal__pv__BarcelonaHasEventBadgerelayprovider: false,
         __relay_internal__pv__BarcelonaGenAIRepliesEnabledrelayprovider: false,
         __relay_internal__pv__BarcelonaIsSearchDiscoveryEnabledrelayprovider: false,
         __relay_internal__pv__BarcelonaHasCommunitiesrelayprovider: true,
         __relay_internal__pv__BarcelonaHasGameScoreSharerelayprovider: true,
+        __relay_internal__pv__BarcelonaMessagesHasLiveChatMessagingrelayprovider: false,
         __relay_internal__pv__BarcelonaHasPublicViewCountCardrelayprovider: true,
         __relay_internal__pv__BarcelonaHasCommunityEmojiUpdateCardrelayprovider: false,
         __relay_internal__pv__BarcelonaHasCommunityEntityCardrelayprovider: true,
@@ -872,6 +904,13 @@ export async function getPostReplies(target, options = {}) {
       params.append('doc_id', REPLIES_DOC_ID);
       params.append('variables', JSON.stringify(variables));
 
+      let csrfToken = '';
+      if (options.cookie) {
+        const resolved = resolveCookie(options.cookie);
+        const m = resolved.match(/csrftoken=([^;]+)/);
+        if (m) csrfToken = m[1].trim();
+      }
+
       const gres = await fetchWithRetry(
         THREADS_GRAPHQL_ENDPOINT,
         {
@@ -879,10 +918,11 @@ export async function getPostReplies(target, options = {}) {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-FB-Friendly-Name': 'BarcelonaPostPageDirectQuery',
+            ...(csrfToken ? { 'X-CSRFToken': csrfToken } : {}),
           },
           body: params.toString(),
           proxy: options.proxy,
-        cookie: options.cookie,
+          cookie: options.cookie,
         },
         { fetchFn: options.fetchFn }
       );
