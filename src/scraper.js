@@ -17,6 +17,7 @@ import {
   formatReplyTreeAscii,
   expandQuery,
 } from './normalizers.js';
+import { getLiveQueryMetadata } from './docid-resolver.js';
 
 export async function getProfile(username, options = {}) {
   const cleanUsername = username.replace(/^@/, '').trim();
@@ -911,7 +912,9 @@ export async function getPostReplies(target, options = {}) {
         if (m) csrfToken = m[1].trim();
       }
 
-      const gres = await fetchWithRetry(
+      let activeDocId = REPLIES_DOC_ID;
+
+      let gres = await fetchWithRetry(
         THREADS_GRAPHQL_ENDPOINT,
         {
           method: 'POST',
@@ -927,9 +930,47 @@ export async function getPostReplies(target, options = {}) {
         { fetchFn: options.fetchFn }
       );
 
-      if (!gres.ok) break;
+      let gjson = gres.ok ? await gres.json() : null;
 
-      const gjson = await gres.json();
+      // Dynamic self-healing fallback: If Meta rotates doc_id or rejects the query
+      if (!gjson || gjson.errors || !gjson.data?.data) {
+        const liveMeta = await getLiveQueryMetadata('BarcelonaPostPageDirectQuery', {
+          proxy: options.proxy,
+          cookie: options.cookie,
+          targetUrl: postUrl,
+        });
+
+        if (liveMeta?.docId && liveMeta.docId !== activeDocId) {
+          activeDocId = liveMeta.docId;
+          params.set('doc_id', activeDocId);
+
+          if (liveMeta.providerVars) {
+            Object.assign(variables, liveMeta.providerVars);
+            params.set('variables', JSON.stringify(variables));
+          }
+
+          gres = await fetchWithRetry(
+            THREADS_GRAPHQL_ENDPOINT,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-FB-Friendly-Name': 'BarcelonaPostPageDirectQuery',
+                ...(csrfToken ? { 'X-CSRFToken': csrfToken } : {}),
+              },
+              body: params.toString(),
+              proxy: options.proxy,
+              cookie: options.cookie,
+            },
+            { fetchFn: options.fetchFn }
+          );
+
+          gjson = gres.ok ? await gres.json() : null;
+        }
+      }
+
+      if (!gres.ok || !gjson) break;
+
       const pageData = gjson?.data?.data;
       if (!pageData || !Array.isArray(pageData.edges) || pageData.edges.length === 0) {
         break;
