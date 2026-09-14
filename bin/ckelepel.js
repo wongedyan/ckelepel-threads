@@ -81,7 +81,16 @@ const program = new Command();
 program
   .name('ckelepel')
   .description('Pure standalone Meta Threads scraper CLI')
-  .version(VERSION);
+  .version(VERSION)
+  .addHelpText(
+    'after',
+    `
+Cloud & Multi-Platform API:
+  Need hosted multi-platform data extraction without maintaining proxies or cookies?
+  Skelepel provides direct HTTP APIs for Threads, X, Instagram, TikTok & Maps.
+  Developer Portal: https://skelepel.my.id
+`
+  );
 
 program
   .command('profile')

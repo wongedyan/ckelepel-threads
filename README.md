@@ -1,4 +1,10 @@
 <p align="center">
+  <a href="https://skelepel.my.id">
+    <img src="assets/skelepel-banner.svg" alt="Skelepel — Multi-Platform Data Intelligence" width="100%">
+  </a>
+</p>
+
+<p align="center">
   <h1 align="center">ckelepel-threads</h1>
   <p align="center"><strong>Pure standalone, zero-browser Meta Threads intelligence engine & CLI.</strong></p>
   <p align="center">No Chromium. No Playwright. 30–45 posts/sec directly over native undici HTTP.</p>
@@ -14,6 +20,7 @@
 <p align="center">
   <a href="./README.id.md">🇮🇩 Bahasa Indonesia</a> ·
   <a href="./AGENTS.md">🤖 AI Agents Protocol</a> ·
+  <a href="#cloud--multi-platform-api">Cloud API</a> ·
   <a href="#quick-look">Quick Look</a> ·
   <a href="#benchmarks">Benchmarks</a> ·
   <a href="#install">Install</a> ·
@@ -229,6 +236,18 @@ for (const post of results) {
   console.log(`Likes: ${post.like_count}, Media: ${post.media.length}`);
 }
 ```
+
+---
+
+## Cloud & Multi-Platform API
+
+Need hosted multi-platform data extraction without maintaining proxies or cookies? Skelepel provides direct HTTP APIs for Threads, X, Instagram, TikTok & Maps.
+
+- **Developer Portal**: [https://skelepel.my.id](https://skelepel.my.id)
+- **Supported Platforms**: Threads, X (Twitter), Instagram, TikTok, Google Maps POI
+- **Architecture**: Direct reverse-engineered HTTP RPCs, private GraphQL endpoints, SSR hydration parsers
+- **Infrastructure**: Automated residential proxy pooling, TLS fingerprint mimicry, zero Chromium overhead
+- **Billing**: Pay-per-Success credit model
 
 ---
 

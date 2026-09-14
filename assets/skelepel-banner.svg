@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 130" width="850" height="130" fill="none" role="img" aria-label="Skelepel — High-Throughput Multi-Platform Intelligence Gateway" style="max-width: 100%; height: auto; display: block;">
+  <title>Skelepel — High-Throughput Multi-Platform Intelligence Gateway</title>
+  <desc>Multi-platform direct HTTP API · Threads, X, TikTok, IG, Maps · skelepel.my.id · Pay-per-success architecture</desc>
+
+  <defs>
+    <!-- Background subtle zinc gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111114"/>
+      <stop offset="50%" stop-color="#09090b"/>
+      <stop offset="100%" stop-color="#0c0c0f"/>
+    </linearGradient>
+
+    <!-- Top edge precision sheen -->
+    <linearGradient id="topSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#27272a" stop-opacity="0.1"/>
+      <stop offset="25%" stop-color="#52525b" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#71717a" stop-opacity="0.85"/>
+      <stop offset="75%" stop-color="#52525b" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#27272a" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Logo container card gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#101013"/>
+    </linearGradient>
+
+    <!-- Active badge background gradient -->
+    <linearGradient id="activeBadgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#18181b"/>
+    </linearGradient>
+
+    <!-- Subtle radial glow behind symbol -->
+    <radialGradient id="logoGlow" cx="65" cy="65" r="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#27272a" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Precision micro-grid pattern -->
+    <pattern id="microGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#1c1c20" stroke-width="0.5" stroke-opacity="0.65"/>
+      <circle cx="16" cy="16" r="0.65" fill="#27272a" fill-opacity="0.85"/>
+    </pattern>
+  </defs>
+
+  <style>
+    .title-brand {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      fill: #fafafa;
+      letter-spacing: -0.2px;
+    }
+    .title-sep {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      fill: #52525b;
+    }
+    .title-tagline {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      fill: #e4e4e7;
+      letter-spacing: -0.1px;
+    }
+    .subtitle-main {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      fill: #a1a1aa;
+    }
+    .platform-highlight {
+      fill: #fafafa;
+      font-weight: 500;
+    }
+    .domain-text {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Liberation Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+      font-weight: 600;
+      font-size: 11.5px;
+      fill: #fafafa;
+      letter-spacing: 0.2px;
+    }
+    .mono-bold {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Liberation Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+      font-weight: 600;
+      font-size: 9.5px;
+      fill: #fafafa;
+      letter-spacing: 0.4px;
+    }
+    .mono-key {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Liberation Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+      font-weight: 500;
+      font-size: 9px;
+      fill: #a1a1aa;
+      letter-spacing: 0.5px;
+    }
+    .mono-val {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Liberation Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+      font-weight: 600;
+      font-size: 9.5px;
+      fill: #fafafa;
+      letter-spacing: 0.3px;
+    }
+    .badge-label {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Liberation Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+      font-weight: 600;
+      font-size: 9.5px;
+      fill: #e4e4e7;
+      letter-spacing: 0.3px;
+    }
+  </style>
+
+  <!-- Outer Card Frame -->
+  <rect x="0.5" y="0.5" width="849" height="129" rx="8" fill="url(#bgGrad)" stroke="#27272a" stroke-width="1"/>
+
+  <!-- Subtle Micro-grid Texture -->
+  <rect x="1" y="1" width="848" height="128" rx="7.5" fill="url(#microGrid)" opacity="0.55"/>
+
+  <!-- Subtle Radial Glow behind logo -->
+  <rect x="1" y="1" width="848" height="128" rx="7.5" fill="url(#logoGlow)"/>
+
+  <!-- Top Sheen 1px Precision Line -->
+  <path d="M 12 1 L 838 1" stroke="url(#topSheen)" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Precision Corner Registration Crosshairs (snapped to tangent points) -->
+  <g stroke="#3f3f46" stroke-width="1" stroke-opacity="0.7">
+    <!-- Top-left at (14, 14) -->
+    <line x1="14" y1="10" x2="14" y2="18" />
+    <line x1="10" y1="14" x2="18" y2="14" />
+    <!-- Top-right at (836, 14) -->
+    <line x1="836" y1="10" x2="836" y2="18" />
+    <line x1="832" y1="14" x2="840" y2="14" />
+    <!-- Bottom-left at (14, 116) -->
+    <line x1="14" y1="112" x2="14" y2="120" />
+    <line x1="10" y1="116" x2="18" y2="116" />
+    <!-- Bottom-right at (836, 116) -->
+    <line x1="836" y1="112" x2="836" y2="120" />
+    <line x1="832" y1="116" x2="840" y2="116" />
+  </g>
+
+  <!-- Left Block: Skelepel Logo Emblem Box (x=24, y=24, width=82, height=82, bottom=106) -->
+  <g transform="translate(24, 24)">
+    <rect width="82" height="82" rx="8" fill="url(#cardGrad)" stroke="#27272a" stroke-width="1"/>
+    <rect x="1" y="1" width="80" height="80" rx="7" fill="none" stroke="#3f3f46" stroke-width="0.5" stroke-opacity="0.35"/>
+    
+    <!-- Skelepel Geometric Symbol: center is cx=41, cy=41 -->
+    <!-- bounds x=[30,800], y=[1.4,988.6], center=(415, 495) -->
+    <!-- scale 0.052 -> width=40.04, height=51.33. translate=(41 - 415*0.052, 41 - 495*0.052) = (19.42, 15.26) -->
+    <g transform="translate(19.4, 15.3) scale(0.052)">
+      <path d="M 800.0,3.2 A 2.0,2.0 0 0,0 797.1,1.4 L 70.1,360.1 A 36.0,36.0 0 0,0 50.0,392.4 L 50.0,504.0 A 36.0,36.0 0 0,0 86.0,540.0 L 474.8,540.0 A 12.0,12.0 0 0,1 480.8,562.4 L 31.0,819.4 A 2.0,2.0 0 0,0 30.0,821.2 L 30.0,986.8 A 2.0,2.0 0 0,0 32.9,988.6 L 759.9,629.9 A 36.0,36.0 0 0,0 780.0,597.6 L 780.0,486.0 A 36.0,36.0 0 0,0 744.0,450.0 L 355.2,450.0 A 12.0,12.0 0 0,1 349.2,427.6 L 799.0,170.6 A 2.0,2.0 0 0,0 800.0,168.8 Z" fill="#fafafa" />
+    </g>
+  </g>
+
+  <!-- Middle Block (x=124, y=24 to y=106) -->
+  <!-- Row 1: Header (baseline y=43) -->
+  <g transform="translate(124, 43)">
+    <text class="title-brand" x="0" y="0">Skelepel <tspan class="title-sep">—</tspan> <tspan class="title-tagline">High-Throughput Multi-Platform Intelligence Gateway</tspan></text>
+  </g>
+
+  <!-- Row 2: Subtitle (baseline y=66) -->
+  <g transform="translate(124, 66)">
+    <text class="subtitle-main" x="0" y="0">Multi-platform direct HTTP API <tspan fill="#71717a">·</tspan> <tspan class="platform-highlight">Threads, X, TikTok, IG, Maps</tspan> <tspan fill="#71717a">·</tspan> <tspan class="domain-text">skelepel.my.id</tspan></text>
+  </g>
+
+  <!-- Row 3: Feature Badges (y=84, height=22, bottom=106) -->
+  <g transform="translate(124, 84)">
+    <!-- Badge 1: Pay-per-success architecture (Primary active highlight) -->
+    <g transform="translate(0, 0)">
+      <rect width="198" height="22" rx="4" fill="url(#activeBadgeGrad)" stroke="#52525b" stroke-width="1"/>
+      <circle cx="10" cy="11" r="2.5" fill="#fafafa"/>
+      <text class="mono-bold" x="20" y="14.5">PAY-PER-SUCCESS ARCHITECTURE</text>
+    </g>
+
+    <!-- Badge 2: Direct HTTP -->
+    <g transform="translate(206, 0)">
+      <rect width="112" height="22" rx="4" fill="#141417" stroke="#27272a" stroke-width="1"/>
+      <text class="badge-label" x="10" y="14.5">DIRECT HTTP API</text>
+    </g>
+
+    <!-- Badge 3: Zero Headless Browser -->
+    <g transform="translate(326, 0)">
+      <rect width="142" height="22" rx="4" fill="#141417" stroke="#27272a" stroke-width="1"/>
+      <text class="badge-label" x="10" y="14.5">ZERO BROWSER ENGINE</text>
+    </g>
+  </g>
+
+  <!-- Right Block: Telemetry Spec Card (x=632, y=24, width=194, height=82, bottom=106) -->
+  <g transform="translate(632, 24)">
+    <rect width="194" height="82" rx="8" fill="#111114" stroke="#27272a" stroke-width="1"/>
+    <line x1="0" y1="26" x2="194" y2="26" stroke="#1f1f23" stroke-width="1"/>
+
+    <!-- Header bar with live status indicator -->
+    <g transform="translate(12, 13.5)">
+      <!-- Active pulse ring + solid center dot -->
+      <circle cx="0" cy="0" r="4" fill="none" stroke="#52525b" stroke-width="0.75" stroke-opacity="0.75"/>
+      <circle cx="0" cy="0" r="2" fill="#fafafa"/>
+      <text class="mono-key" x="10" y="3.5">GATEWAY TELEMETRY</text>
+    </g>
+
+    <!-- Specs Grid with crisp tabular alignment -->
+    <!-- Row 1: Latency -->
+    <text class="mono-key" x="12" y="43">P95 SPEED</text>
+    <text class="mono-val" x="82" y="43">&lt; 180ms HTTP</text>
+
+    <!-- Row 2: Sockets -->
+    <text class="mono-key" x="12" y="59">STREAMING</text>
+    <text class="mono-val" x="82" y="59">NATIVE UNDICI</text>
+
+    <!-- Row 3: Pricing model -->
+    <text class="mono-key" x="12" y="73">BILLING</text>
+    <text class="mono-val" x="82" y="73" fill="#fafafa">PER-SUCCESS ONLY</text>
+  </g>
+</svg>

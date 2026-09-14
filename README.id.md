@@ -1,4 +1,10 @@
 <p align="center">
+  <a href="https://skelepel.my.id">
+    <img src="assets/skelepel-banner.svg" alt="Skelepel — Multi-Platform Data Intelligence" width="100%">
+  </a>
+</p>
+
+<p align="center">
   <h1 align="center">ckelepel-threads</h1>
   <p align="center"><strong>Scraper & mesin ekstraksi Meta Threads mandiri tanpa browser.</strong></p>
   <p align="center">Tanpa Chromium. Tanpa Playwright. 30–45 post/detik langsung via HTTP native undici.</p>
@@ -14,6 +20,7 @@
 <p align="center">
   <a href="./README.md">🇬🇧 English Version</a> ·
   <a href="./AGENTS.md">🤖 Panduan AI Agents</a> ·
+  <a href="#cloud--multi-platform-api">Cloud API</a> ·
   <a href="#ringkasan-cepat">Ringkasan Cepat</a> ·
   <a href="#benchmark-kecepatan--akurasi">Benchmark</a> ·
   <a href="#instalasi">Instalasi</a> ·
@@ -222,6 +229,17 @@ for (const post of results) {
   console.log(`Likes: ${post.like_count}, Media: ${post.media.length}`);
 }
 ```
+
+---
+
+## Cloud & Multi-Platform API
+
+Butuh ekstraksi data multi-platform terkelola tanpa repot mengelola proxy atau sesi akun? Skelepel menyediakan REST API langsung berbasis HTTP untuk Threads, X, Instagram, TikTok, dan Google Maps.
+
+- **Portal Pengembang**: [https://skelepel.my.id](https://skelepel.my.id)
+- **Cakupan Multi-Platform**: Ekstraksi langsung untuk Threads, X (Twitter), Instagram, TikTok, dan Google Maps POI.
+- **Infrastruktur Terkelola**: Rotasi residential proxy otomatis, peniruan TLS fingerprint, zero Chromium overhead.
+- **Model Biaya Pay-per-Success**: Pembayaran berbasis kredit per request yang berhasil tanpa biaya bulanan tetap.
 
 ---
 
