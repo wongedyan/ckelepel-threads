@@ -85,10 +85,10 @@ program
   .addHelpText(
     'after',
     `
-Cloud & Multi-Platform API:
-  Need hosted multi-platform data extraction without maintaining proxies or cookies?
-  Skelepel provides direct HTTP APIs for Threads, X, Instagram, TikTok & Maps.
-  Developer Portal: https://skelepel.my.id
+Need Social & Business Leads Without Managing Proxies?
+  Extract verified contacts, suppliers, and reviews across Threads, IG, TikTok, X & Maps
+  directly into Excel or REST API. Zero proxy setup, pay-per-success.
+  Portal: https://skelepel.my.id
 `
   );
 

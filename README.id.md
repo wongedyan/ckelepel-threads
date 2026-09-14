@@ -20,7 +20,7 @@
 <p align="center">
   <a href="./README.md">🇬🇧 English Version</a> ·
   <a href="./AGENTS.md">🤖 Panduan AI Agents</a> ·
-  <a href="#cloud--multi-platform-api">Cloud API</a> ·
+  <a href="#butuh-data-bisnis--leads-tanpa-ribet">Cloud API</a> ·
   <a href="#ringkasan-cepat">Ringkasan Cepat</a> ·
   <a href="#benchmark-kecepatan--akurasi">Benchmark</a> ·
   <a href="#instalasi">Instalasi</a> ·
@@ -28,6 +28,27 @@
   <a href="#penyimpanan-dataset-sqlite">Dataset DB</a> ·
   <a href="#library-api-esm">Library API</a>
 </p>
+
+<div align="center">
+
+<table width="100%">
+<tr>
+<td width="50%" align="center" valign="top">
+  <strong>ckelepel-threads (CLI)</strong><br />
+  <sub>Open-source, mandiri &amp; gratis untuk scraping Threads di laptop / server sendiri.</sub><br />
+  <sub><code>npx ckelepel-threads search "query" --limit 50</code></sub>
+</td>
+<td width="50%" align="center" valign="top">
+  <a href="https://skelepel.my.id">
+    <strong>Skelepel Cloud Gateway</strong>
+  </a><br />
+  <sub>Tarik kontak supplier, database bisnis, dan review dari <strong>Threads, IG, TikTok, X &amp; Google Maps</strong> langsung siap pakai ke Excel. Tanpa sewa proxy, bayar per data sukses.</sub><br />
+  <sub><a href="https://skelepel.my.id"><strong>Buka Portal Skelepel (skelepel.my.id) →</strong></a></sub>
+</td>
+</tr>
+</table>
+
+</div>
 
 ---
 
@@ -232,14 +253,15 @@ for (const post of results) {
 
 ---
 
-## Cloud & Multi-Platform API
+## Butuh Data Bisnis & Leads Tanpa Ribet?
 
-Butuh ekstraksi data multi-platform terkelola tanpa repot mengelola proxy atau sesi akun? Skelepel menyediakan REST API langsung berbasis HTTP untuk Threads, X, Instagram, TikTok, dan Google Maps.
+Capek scraping manual atau sewa proxy mahal cuma buat ambil data? **Skelepel** menyediakan layanan siap pakai untuk mengambil data kontak bisnis, supplier, toko, dan review langsung ke file Excel atau JSON API.
 
-- **Portal Pengembang**: [https://skelepel.my.id](https://skelepel.my.id)
-- **Cakupan Multi-Platform**: Ekstraksi langsung untuk Threads, X (Twitter), Instagram, TikTok, dan Google Maps POI.
-- **Infrastruktur Terkelola**: Rotasi residential proxy otomatis, peniruan TLS fingerprint, zero Chromium overhead.
-- **Model Biaya Pay-per-Success**: Pembayaran berbasis kredit per request yang berhasil tanpa biaya bulanan tetap.
+- **Portal Resmi**: [https://skelepel.my.id](https://skelepel.my.id)
+- **5 Platform Sekaligus**: Ambil data dari Threads, Instagram, TikTok, Twitter/X, dan Google Maps.
+- **Tanpa Pusing Infrastruktur**: Gak perlu sewa proxy, gak perlu login akun tumbal, dan gak takut akun kena blokir.
+- **Hasil Siap Pakai**: Data langsung rapi berformat Excel (nama bisnis, nomor WhatsApp, kategori, kota) atau REST API untuk integrasi ke CRM / aplikasi kamu.
+- **Hemat & Fair**: Sistem kredit Pay-per-Success — kamu cuma bayar untuk data yang beneran berhasil diambil.
 
 ---
 

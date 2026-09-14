@@ -156,33 +156,33 @@
   <!-- Middle Block (x=124, y=24 to y=106) -->
   <!-- Row 1: Header (baseline y=43) -->
   <g transform="translate(124, 43)">
-    <text class="title-brand" x="0" y="0">Skelepel <tspan class="title-sep">—</tspan> <tspan class="title-tagline">High-Throughput Multi-Platform Intelligence Gateway</tspan></text>
+    <text class="title-brand" x="0" y="0">Skelepel <tspan class="title-sep">—</tspan> <tspan class="title-tagline">Multi-Platform Social &amp; Leads Data Gateway</tspan></text>
   </g>
 
   <!-- Row 2: Subtitle (baseline y=66) -->
   <g transform="translate(124, 66)">
-    <text class="subtitle-main" x="0" y="0">Multi-platform direct HTTP API <tspan fill="#71717a">·</tspan> <tspan class="platform-highlight">Threads, X, TikTok, IG, Maps</tspan> <tspan fill="#71717a">·</tspan> <tspan class="domain-text">skelepel.my.id</tspan></text>
+    <text class="subtitle-main" x="0" y="0">Extract business leads &amp; social data without managing proxies <tspan fill="#71717a">·</tspan> <tspan class="domain-text">skelepel.my.id</tspan></text>
   </g>
 
   <!-- Row 3: Feature Badges (y=84, height=22, bottom=106) -->
   <g transform="translate(124, 84)">
-    <!-- Badge 1: Pay-per-success architecture (Primary active highlight) -->
+    <!-- Badge 1: Pay-per-success billing -->
     <g transform="translate(0, 0)">
-      <rect width="198" height="22" rx="4" fill="url(#activeBadgeGrad)" stroke="#52525b" stroke-width="1"/>
+      <rect width="194" height="22" rx="4" fill="url(#activeBadgeGrad)" stroke="#52525b" stroke-width="1"/>
       <circle cx="10" cy="11" r="2.5" fill="#fafafa"/>
-      <text class="mono-bold" x="20" y="14.5">PAY-PER-SUCCESS ARCHITECTURE</text>
+      <text class="mono-bold" x="20" y="14.5">PAY-PER-SUCCESS BILLING</text>
     </g>
 
-    <!-- Badge 2: Direct HTTP -->
-    <g transform="translate(206, 0)">
-      <rect width="112" height="22" rx="4" fill="#141417" stroke="#27272a" stroke-width="1"/>
-      <text class="badge-label" x="10" y="14.5">DIRECT HTTP API</text>
+    <!-- Badge 2: No proxies needed -->
+    <g transform="translate(202, 0)">
+      <rect width="138" height="22" rx="4" fill="#141417" stroke="#27272a" stroke-width="1"/>
+      <text class="badge-label" x="10" y="14.5">NO PROXIES NEEDED</text>
     </g>
 
-    <!-- Badge 3: Zero Headless Browser -->
-    <g transform="translate(326, 0)">
-      <rect width="142" height="22" rx="4" fill="#141417" stroke="#27272a" stroke-width="1"/>
-      <text class="badge-label" x="10" y="14.5">ZERO BROWSER ENGINE</text>
+    <!-- Badge 3: Excel & API ready -->
+    <g transform="translate(348, 0)">
+      <rect width="138" height="22" rx="4" fill="#141417" stroke="#27272a" stroke-width="1"/>
+      <text class="badge-label" x="10" y="14.5">EXCEL &amp; API READY</text>
     </g>
   </g>
 
@@ -196,20 +196,20 @@
       <!-- Active pulse ring + solid center dot -->
       <circle cx="0" cy="0" r="4" fill="none" stroke="#52525b" stroke-width="0.75" stroke-opacity="0.75"/>
       <circle cx="0" cy="0" r="2" fill="#fafafa"/>
-      <text class="mono-key" x="10" y="3.5">GATEWAY TELEMETRY</text>
+      <text class="mono-key" x="10" y="3.5">CLOUD DATA GATEWAY</text>
     </g>
 
     <!-- Specs Grid with crisp tabular alignment -->
-    <!-- Row 1: Latency -->
-    <text class="mono-key" x="12" y="43">P95 SPEED</text>
-    <text class="mono-val" x="82" y="43">&lt; 180ms HTTP</text>
+    <!-- Row 1: Platforms -->
+    <text class="mono-key" x="12" y="43">PLATFORMS</text>
+    <text class="mono-val" x="82" y="43">5 CHANNELS</text>
 
-    <!-- Row 2: Sockets -->
-    <text class="mono-key" x="12" y="59">STREAMING</text>
-    <text class="mono-val" x="82" y="59">NATIVE UNDICI</text>
+    <!-- Row 2: Formats -->
+    <text class="mono-key" x="12" y="59">DELIVERY</text>
+    <text class="mono-val" x="82" y="59">EXCEL &amp; REST API</text>
 
     <!-- Row 3: Pricing model -->
     <text class="mono-key" x="12" y="73">BILLING</text>
-    <text class="mono-val" x="82" y="73" fill="#fafafa">PER-SUCCESS ONLY</text>
+    <text class="mono-val" x="82" y="73" fill="#fafafa">PAY-PER-SUCCESS</text>
   </g>
 </svg>

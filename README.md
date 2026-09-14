@@ -20,7 +20,7 @@
 <p align="center">
   <a href="./README.id.md">🇮🇩 Bahasa Indonesia</a> ·
   <a href="./AGENTS.md">🤖 AI Agents Protocol</a> ·
-  <a href="#cloud--multi-platform-api">Cloud API</a> ·
+  <a href="#need-social--business-leads-without-the-scraping-hassle">Cloud API</a> ·
   <a href="#quick-look">Quick Look</a> ·
   <a href="#benchmarks">Benchmarks</a> ·
   <a href="#install">Install</a> ·
@@ -28,6 +28,27 @@
   <a href="#dataset-storage">Dataset DB</a> ·
   <a href="#library-api">Library API</a>
 </p>
+
+<div align="center">
+
+<table width="100%">
+<tr>
+<td width="50%" align="center" valign="top">
+  <strong>ckelepel-threads (CLI)</strong><br />
+  <sub>Open-source, self-hosted Meta Threads scraper for your local machine or server.</sub><br />
+  <sub><code>npx ckelepel-threads search "query" --limit 50</code></sub>
+</td>
+<td width="50%" align="center" valign="top">
+  <a href="https://skelepel.my.id">
+    <strong>Skelepel Cloud Gateway</strong>
+  </a><br />
+  <sub>Extract business leads, verified contacts, and reviews across <strong>Threads, Instagram, TikTok, X &amp; Google Maps</strong> directly into ready-to-use Excel/API. No proxies needed.</sub><br />
+  <sub><a href="https://skelepel.my.id"><strong>Open Skelepel Portal (skelepel.my.id) →</strong></a></sub>
+</td>
+</tr>
+</table>
+
+</div>
 
 ---
 
@@ -239,15 +260,15 @@ for (const post of results) {
 
 ---
 
-## Cloud & Multi-Platform API
+## Need Social & Business Leads Without the Scraping Hassle?
 
-Need hosted multi-platform data extraction without maintaining proxies or cookies? Skelepel provides direct HTTP APIs for Threads, X, Instagram, TikTok & Maps.
+Tired of maintaining proxies, dealing with account checkpoints, or reverse-engineering platform changes? **Skelepel** provides ready-to-use social and local business data extraction directly into Excel sheets or REST APIs.
 
-- **Developer Portal**: [https://skelepel.my.id](https://skelepel.my.id)
-- **Supported Platforms**: Threads, X (Twitter), Instagram, TikTok, Google Maps POI
-- **Architecture**: Direct reverse-engineered HTTP RPCs, private GraphQL endpoints, SSR hydration parsers
-- **Infrastructure**: Automated residential proxy pooling, TLS fingerprint mimicry, zero Chromium overhead
-- **Billing**: Pay-per-Success credit model
+- **Developer & User Portal**: [https://skelepel.my.id](https://skelepel.my.id)
+- **5 Supported Channels**: Extract data across Meta Threads, Instagram, TikTok, Twitter/X, and Google Maps POI.
+- **Zero Infrastructure Hassle**: No proxies to rent, no burner accounts to manage, and no browser overhead.
+- **Ready-to-Use Data**: Clean exports in Excel format (business names, verified WhatsApp numbers, categories, cities) or REST API.
+- **Fair Pay-per-Success**: Credit-based billing — you only pay for successfully extracted records.
 
 ---
 
