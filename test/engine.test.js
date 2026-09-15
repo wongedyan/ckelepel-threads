@@ -351,4 +351,30 @@ describe('ckelepel-threads pure engine tests', () => {
     db.close();
     if (fs.existsSync(tempDb)) fs.unlinkSync(tempDb);
   });
+
+  it('reuses cached ProxyAgent instances in getDispatcher', async () => {
+    const { getDispatcher } = await import('../src/index.js');
+    const proxyUrl = 'http://user:pass@127.0.0.1:8080';
+    const agent1 = getDispatcher(proxyUrl);
+    const agent2 = getDispatcher(proxyUrl);
+    assert.ok(agent1);
+    assert.equal(agent1, agent2);
+  });
+
+  it('fetchWithRetry aborts immediately without sleep-retry when aborted', async () => {
+    const { fetchWithRetry } = await import('../src/index.js');
+    const controller = new AbortController();
+    controller.abort();
+    const start = performance.now();
+    await assert.rejects(
+      async () => {
+        await fetchWithRetry('https://example.com/abort-test', {
+          signal: controller.signal,
+        });
+      },
+      { name: 'AbortError' }
+    );
+    const elapsed = performance.now() - start;
+    assert.ok(elapsed < 200, `Expected elapsed < 200ms, got ${elapsed}ms`);
+  });
 });

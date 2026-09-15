@@ -25,6 +25,8 @@ export const DEFAULT_HEADERS = {
   'X-IG-App-ID': '238260118697367',
 };
 
+const proxyAgentCache = new Map();
+
 export function getDispatcher(proxyUrl) {
   const targetProxy =
     proxyUrl ||
@@ -32,7 +34,12 @@ export function getDispatcher(proxyUrl) {
     process.env.HTTP_PROXY ||
     process.env.ALL_PROXY;
   if (targetProxy) {
-    return new ProxyAgent(targetProxy);
+    let agent = proxyAgentCache.get(targetProxy);
+    if (!agent) {
+      agent = new ProxyAgent(targetProxy);
+      proxyAgentCache.set(targetProxy, agent);
+    }
+    return agent;
   }
   return undefined;
 }
@@ -125,6 +132,9 @@ export async function fetchWithRetry(url, options = {}, retryConfig = {}) {
       return res;
     } catch (err) {
       lastError = err;
+      if (err.name === 'AbortError' || requestOptions.signal?.aborted) {
+        throw err;
+      }
       if (attempt <= maxRetries) {
         await sleep(delay + jitterDelay(50, 150));
         delay *= 2;

@@ -910,8 +910,8 @@ export async function getPostReplies(target, options = {}) {
       params.append('variables', JSON.stringify(variables));
 
       let csrfToken = '';
-      if (options.cookie) {
-        const resolved = resolveCookie(options.cookie);
+      const resolved = resolveCookie(options.cookie);
+      if (resolved && typeof resolved === 'string') {
         const m = resolved.match(/csrftoken=([^;]+)/);
         if (m) csrfToken = m[1].trim();
       }

@@ -95,10 +95,12 @@ describe('ckelepel-threads CLI formatting & CSV tests', () => {
     const data = [
       { name: 'Jennie, Kim', bio: 'Said "hello"' },
       { name: 'Normal', bio: 'Just text' },
+      { name: 'Formula', bio: '=cmd|calc!A0' },
     ];
     const csv = toCsv(data);
     assert.ok(csv.includes('"Jennie, Kim"'));
     assert.ok(csv.includes('"Said ""hello"""'));
+    assert.ok(csv.includes('"\'=cmd|calc!A0"'));
   });
 
   it('formatProfileCsv formats profile data into valid CSV rows', () => {
@@ -122,6 +124,12 @@ describe('ckelepel-threads CLI formatting & CSV tests', () => {
     assert.ok(csv.includes('"id","post_id","parent_id","code"'));
     assert.ok(csv.includes('"rep_001"'));
     assert.ok(csv.includes('"Solo & You and Me!"'));
+
+    // Also verify created_at fallback
+    const csvFallback = formatRepliesCsv([
+      { id: 'rep_002', text: 'Created test', created_at: 1789450000 }
+    ]);
+    assert.ok(csvFallback.includes('"1789450000"'));
   });
 
   it('formatProfileStdout renders readable text', () => {

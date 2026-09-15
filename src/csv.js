@@ -6,7 +6,10 @@ function escapeCsvField(val) {
   if (val === null || val === undefined) {
     return '""';
   }
-  const str = typeof val === 'object' ? JSON.stringify(val) : String(val);
+  let str = typeof val === 'object' ? JSON.stringify(val) : String(val);
+  if (/^[\s]*[=+\-@\t\r]/.test(str)) {
+    str = `'${str}`;
+  }
   return `"${str.replace(/"/g, '""')}"`;
 }
 
@@ -91,7 +94,7 @@ export function formatRepliesCsv(data) {
     is_verified: r.is_verified ? 'true' : 'false',
     text: r.text || '',
     likes: r.like_count || 0,
-    taken_at: r.taken_at || '',
+    taken_at: r.taken_at || r.created_at || '',
     url: r.url || '',
   }));
   return toCsv(rows, [
