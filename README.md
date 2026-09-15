@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/wongedyan/ckelepel-threads/actions"><img src="https://img.shields.io/badge/tests-26%20passed-brightgreen.svg?style=flat" alt="Tests"></a>
+  <a href="https://github.com/wongedyan/ckelepel-threads/actions"><img src="https://img.shields.io/badge/tests-29%20passed-brightgreen.svg?style=flat" alt="Tests"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D22.0.0-blue.svg?style=flat" alt="Node.js"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat" alt="License"></a>
   <a href="https://nodejs.org/api/esm.html"><img src="https://img.shields.io/badge/module-pure%20ESM-orange.svg?style=flat" alt="ESM"></a>
@@ -40,6 +40,7 @@
 </td>
 <td width="50%" align="center" valign="top">
   <a href="https://skelepel.my.id">
+    <img src="assets/skelepel-logo.svg" width="90" height="90" alt="Skelepel Cloud Gateway" style="max-width: 100%; height: auto;" /><br />
     <strong>Skelepel Cloud Gateway</strong>
   </a><br />
   <sub>Extract business leads, verified contacts, and reviews across <strong>Threads, Instagram, TikTok, X &amp; Google Maps</strong> directly into ready-to-use Excel/API. No proxies needed.</sub><br />
