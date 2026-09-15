@@ -426,9 +426,16 @@ export async function searchThreads(query, options = {}) {
     queries = expandQuery(queries[0]);
   }
 
+  const clean = queries[0];
   const limit = options.limit || 20;
   const isStrict = options.strict !== false;
   const allPosts = new Map();
+
+  // Filter & Sort helper - Matches against any query facet in multi-query mode
+  const matchesAnyQuery = (caption) => {
+    if (!caption) return false;
+    return queries.some((q) => matchesStrictQuery(caption, q));
+  };
 
   // If multiple queries provided, run multi-query fan-out across queries & facets
   const facetUrls = [];
@@ -439,6 +446,7 @@ export async function searchThreads(query, options = {}) {
 
   // Concurrently fetch facets; abort remaining in-flight requests as soon as target limit is fulfilled
   const collected = [];
+  let strictMatchCount = 0;
   const controller = new AbortController();
 
   const fetchPromises = facetUrls.map((url) =>
@@ -464,10 +472,14 @@ export async function searchThreads(query, options = {}) {
             if (!allPosts.has(item.id)) {
               allPosts.set(item.id, item);
               collected.push(item);
-              if (typeof options.onProgress === 'function') {
-                options.onProgress(collected.length, limit);
+              if (matchesAnyQuery(item.caption)) {
+                strictMatchCount++;
               }
-              if (collected.length >= limit) {
+              const progressCount = isStrict ? strictMatchCount : collected.length;
+              if (typeof options.onProgress === 'function') {
+                options.onProgress(progressCount, limit);
+              }
+              if (progressCount >= limit) {
                 controller.abort();
                 break;
               }
@@ -480,8 +492,6 @@ export async function searchThreads(query, options = {}) {
   );
 
   const htmlResults = await Promise.all(fetchPromises);
-
-  const clean = queries[0];
 
   // Sequential GraphQL cursor pagination if single query and limit not reached
   if (collected.length < limit) {
@@ -639,12 +649,6 @@ export async function searchThreads(query, options = {}) {
   }
 
   // Filter & Sort
-  // Matches against any query facet in multi-query mode
-  const matchesAnyQuery = (caption) => {
-    if (!caption) return false;
-    return queries.some((q) => matchesStrictQuery(caption, q));
-  };
-
   collected.sort((a, b) => {
     const aMatch = matchesAnyQuery(a.caption) ? 1 : 0;
     const bMatch = matchesAnyQuery(b.caption) ? 1 : 0;
