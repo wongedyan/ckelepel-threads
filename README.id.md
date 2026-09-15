@@ -36,7 +36,7 @@
 <td width="50%" align="center" valign="top">
   <strong>ckelepel-threads (CLI)</strong><br />
   <sub>Open-source, mandiri &amp; gratis untuk scraping Threads di laptop / server sendiri.</sub><br />
-  <sub><code>npx ckelepel-threads search "query" --limit 50</code></sub>
+  <sub><code>npx github:wongedyan/ckelepel-threads search "query" --limit 50</code></sub>
 </td>
 <td width="50%" align="center" valign="top">
   <a href="https://skelepel.my.id">
@@ -57,13 +57,13 @@
 
 ```bash
 # 1. Scrape 100 post dengan kecocokan kata kunci presisi dalam ~3 detik
-npx ckelepel-threads search "kecerdasan buatan" --limit 100 --json
+npx github:wongedyan/ckelepel-threads search "kecerdasan buatan" --limit 100 --json
 
 # 2. Ekstrak balasan komentar dan render pohon visual ASCII di terminal
-npx ckelepel-threads replies "Cx_example"
+npx github:wongedyan/ckelepel-threads replies "Cx_example"
 
 # 3. Kumpulkan postingan ke dataset lokal SQLite anti-duplikat
-npx ckelepel-threads search "teknologi, ai, opensource" --limit 200 --dataset tren_teknologi
+npx github:wongedyan/ckelepel-threads search "teknologi, ai, opensource" --limit 200 --dataset tren_teknologi
 ```
 
 ```
@@ -100,19 +100,32 @@ Data empiris yang diukur langsung pada endpoint aktif Meta Threads:
 
 ## Instalasi
 
-Jalankan langsung tanpa instalasi:
+Jalankan langsung tanpa instalasi (via `npx`):
 ```bash
-npx ckelepel-threads --help
+npx github:wongedyan/ckelepel-threads --help
 ```
 
-Atau pasang secara global di sistem:
+Atau pasang secara global di sistem sebagai CLI:
 ```bash
-npm install -g ckelepel-threads
+npm install -g github:wongedyan/ckelepel-threads
+```
+
+Setelah dipasang, jalankan perintah `ckelepel` atau `ckelepel-threads` langsung:
+```bash
+ckelepel search "kecerdasan buatan" --limit 50 --json
 ```
 
 Atau pasang sebagai dependensi proyek Node.js:
 ```bash
-npm install ckelepel-threads
+npm install github:wongedyan/ckelepel-threads
+```
+
+Atau clone repo secara lokal:
+```bash
+git clone https://github.com/wongedyan/ckelepel-threads.git
+cd ckelepel-threads
+npm install
+npm link
 ```
 
 ---

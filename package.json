@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "type": "module",
   "bin": {
-    "ckelepel": "./bin/ckelepel.js"
+    "ckelepel": "./bin/ckelepel.js",
+    "ckelepel-threads": "./bin/ckelepel.js"
   },
   "scripts": {
     "test": "node --test test/**/*.test.js"

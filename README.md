@@ -36,7 +36,7 @@
 <td width="50%" align="center" valign="top">
   <strong>ckelepel-threads (CLI)</strong><br />
   <sub>Open-source, self-hosted Meta Threads scraper for your local machine or server.</sub><br />
-  <sub><code>npx ckelepel-threads search "query" --limit 50</code></sub>
+  <sub><code>npx github:wongedyan/ckelepel-threads search "query" --limit 50</code></sub>
 </td>
 <td width="50%" align="center" valign="top">
   <a href="https://skelepel.my.id">
@@ -57,13 +57,13 @@
 
 ```bash
 # 1. Scrape 100 posts with high-precision keyword matching in ~3 seconds
-npx ckelepel-threads search "artificial intelligence" --limit 100 --json
+npx github:wongedyan/ckelepel-threads search "artificial intelligence" --limit 100 --json
 
 # 2. Extract conversation replies and visualize tree in terminal
-npx ckelepel-threads replies "Cx_example"
+npx github:wongedyan/ckelepel-threads replies "Cx_example"
 
 # 3. Accumulate posts into a deduplicated local SQLite dataset
-npx ckelepel-threads search "tech, ai, opensource" --limit 200 --dataset tech_feed
+npx github:wongedyan/ckelepel-threads search "tech, ai, opensource" --limit 200 --dataset tech_feed
 ```
 
 ```
@@ -100,19 +100,32 @@ Real, reproducible measurements executed against live Meta Threads endpoints:
 
 ## Install
 
-Run instantly without installing:
+Run instantly without installing (via `npx`):
 ```bash
-npx ckelepel-threads --help
+npx github:wongedyan/ckelepel-threads --help
 ```
 
 Or install globally as a command-line tool:
 ```bash
-npm install -g ckelepel-threads
+npm install -g github:wongedyan/ckelepel-threads
+```
+
+Once installed, use `ckelepel` or `ckelepel-threads` directly in your terminal:
+```bash
+ckelepel search "artificial intelligence" --limit 50 --json
 ```
 
 Or add as a dependency in your Node.js application:
 ```bash
-npm install ckelepel-threads
+npm install github:wongedyan/ckelepel-threads
+```
+
+Or clone and link locally:
+```bash
+git clone https://github.com/wongedyan/ckelepel-threads.git
+cd ckelepel-threads
+npm install
+npm link
 ```
 
 ---
