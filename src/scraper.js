@@ -411,6 +411,49 @@ export async function getUserPosts(username, options = {}) {
   };
 }
 
+export async function fetchDynamicTopicFacets(query, options = {}) {
+  const cleanQ = String(query || '').trim();
+  if (!cleanQ) return [cleanQ];
+
+  const facets = new Set([cleanQ]);
+
+  try {
+    const url = `https://www.threads.net/api/v1/tags/search/?q=${encodeURIComponent(cleanQ)}`;
+    const res = await fetchWithRetry(
+      url,
+      {
+        proxy: options.proxy,
+        cookie: options.cookie,
+      },
+      { fetchFn: options.fetchFn, maxRetries: 1 }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      const tags = data.results || [];
+      const cleanLower = cleanQ.toLowerCase();
+      const collapsed = cleanLower.replace(/[\s_-]+/g, '');
+
+      for (const t of tags) {
+        if (!t?.name) continue;
+        const tagName = String(t.name).trim();
+        const tagLower = tagName.toLowerCase();
+
+        const isRelevant =
+          cleanLower.length <= 2
+            ? tagLower === cleanLower
+            : tagLower.startsWith(collapsed) || tagLower.includes(collapsed);
+
+        if (isRelevant) {
+          facets.add(`#${tagName}`);
+        }
+        if (facets.size >= 12) break;
+      }
+    }
+  } catch {}
+
+  return Array.from(facets);
+}
+
 export async function searchThreads(query, options = {}) {
   // Support single query string and array of multi-queries, with auto-expansion
   let queries = Array.isArray(query)
@@ -421,9 +464,18 @@ export async function searchThreads(query, options = {}) {
     throw new Error('Search query is required');
   }
 
-  // Auto-expand known umbrella topics
+  // Auto-expand query dynamically from Threads native Tag API
   if (queries.length === 1 && options.expand !== false) {
-    queries = expandQuery(queries[0]);
+    const dynamicFacets = await fetchDynamicTopicFacets(queries[0], {
+      proxy: options.proxy,
+      cookie: options.cookie,
+      fetchFn: options.fetchFn,
+    });
+    if (dynamicFacets.length > 1) {
+      queries = dynamicFacets;
+    } else {
+      queries = expandQuery(queries[0]);
+    }
   }
 
   const clean = queries[0];

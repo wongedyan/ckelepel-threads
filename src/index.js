@@ -10,6 +10,7 @@ export {
   getUserPosts,
   searchThreads,
   getPostReplies,
+  fetchDynamicTopicFacets,
 } from './scraper.js';
 
 export {

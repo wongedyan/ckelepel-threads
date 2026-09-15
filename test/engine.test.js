@@ -377,4 +377,26 @@ describe('ckelepel-threads pure engine tests', () => {
     const elapsed = performance.now() - start;
     assert.ok(elapsed < 200, `Expected elapsed < 200ms, got ${elapsed}ms`);
   });
+
+  it('fetchDynamicTopicFacets discovers relevant tags dynamically from mock API', async () => {
+    const { fetchDynamicTopicFacets } = await import('../src/index.js');
+    const mockTagsResponse = {
+      results: [
+        { name: 'investasiproperti', media_count: 1000 },
+        { name: 'investasirumah', media_count: 500 },
+        { name: 'unrelatedfood', media_count: 2000 },
+      ],
+    };
+    const mockFetch = async () => ({
+      ok: true,
+      status: 200,
+      json: async () => mockTagsResponse,
+    });
+
+    const facets = await fetchDynamicTopicFacets('investasi', { fetchFn: mockFetch });
+    assert.ok(facets.includes('investasi'));
+    assert.ok(facets.includes('#investasiproperti'));
+    assert.ok(facets.includes('#investasirumah'));
+    assert.ok(!facets.includes('#unrelatedfood'));
+  });
 });

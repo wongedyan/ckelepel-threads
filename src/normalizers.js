@@ -77,6 +77,13 @@ export function matchesStrictQuery(text, query) {
   const boundaryRegex = new RegExp(`(?:^|[^a-z0-9_])#?${escaped}(?:$|[^a-z0-9_])`, 'i');
   if (boundaryRegex.test(cleanText)) return true;
 
+  // 1b. Collapsed hashtag match (e.g. #ligainggris for query "liga inggris")
+  const collapsed = cleanQ.replace(/[\s_-]+/g, '');
+  if (collapsed.length >= 3) {
+    const collapsedRegex = new RegExp(`(?:^|[^a-z0-9_])#${collapsed}(?:$|[^a-z0-9_])`, 'i');
+    if (collapsedRegex.test(cleanText)) return true;
+  }
+
   // 2. Token-level matching:
   // For 2 tokens: both must match.
   // For 3+ tokens: at least 2 significant tokens must match (relaxed semantic context).

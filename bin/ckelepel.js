@@ -178,6 +178,7 @@ program
   .argument('<query>', 'Search keyword, phrase, or comma-separated multi-queries (e.g. "ai, machine learning")')
   .option('-l, --limit <number>', 'Maximum posts to fetch', (val) => parseInt(val, 10), 20)
   .option('--no-strict', 'Disable strict keyword matching filter')
+  .option('--no-expand', 'Disable automatic dynamic topic expansion')
   .option('-o, --format <type>', 'Output format: stdout, json, csv', 'stdout')
   .option('--json', 'Shortcut for --format json')
   .option('--csv', 'Shortcut for --format csv')
@@ -193,6 +194,7 @@ program
       const data = await searchThreads(parsedQueries, {
         limit: options.limit,
         strict: options.strict,
+        expand: options.expand,
         cookie,
         proxy,
       });
