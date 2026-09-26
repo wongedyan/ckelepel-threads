@@ -88,7 +88,7 @@ program
 Need Social & Business Leads Without Managing Proxies?
   Extract verified contacts, suppliers, and reviews across Threads, IG, TikTok, X & Maps
   directly into Excel or REST API. Zero proxy setup, pay-per-success.
-  Portal: https://skelepel.my.id
+  Portal: https://skelepel.id
 `
   );
 

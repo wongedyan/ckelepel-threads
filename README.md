@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://skelepel.my.id">
+  <a href="https://skelepel.id">
     <img src="assets/skelepel-banner.svg" alt="Skelepel — Multi-Platform Data Intelligence" width="100%">
   </a>
 </p>
@@ -39,12 +39,12 @@
   <sub><code>npx github:wongedyan/ckelepel-threads search "query" --limit 50</code></sub>
 </td>
 <td width="50%" align="center" valign="top">
-  <a href="https://skelepel.my.id">
+  <a href="https://skelepel.id">
     <img src="assets/skelepel-logo.svg" width="90" height="90" alt="Skelepel Cloud Gateway" style="max-width: 100%; height: auto;" /><br />
     <strong>Skelepel Cloud Gateway</strong>
   </a><br />
   <sub>Extract business leads, verified contacts, and reviews across <strong>Threads, Instagram, TikTok, X &amp; Google Maps</strong> directly into ready-to-use Excel/API. No proxies needed.</sub><br />
-  <sub><a href="https://skelepel.my.id"><strong>Open Skelepel Portal (skelepel.my.id) →</strong></a></sub>
+  <sub><a href="https://skelepel.id"><strong>Open Skelepel Portal (skelepel.id) →</strong></a></sub>
 </td>
 </tr>
 </table>
@@ -278,7 +278,7 @@ for (const post of results) {
 
 Tired of maintaining proxies, dealing with account checkpoints, or reverse-engineering platform changes? **Skelepel** provides ready-to-use social and local business data extraction directly into Excel sheets or REST APIs.
 
-- **Developer & User Portal**: [https://skelepel.my.id](https://skelepel.my.id)
+- **Developer & User Portal**: [https://skelepel.id](https://skelepel.id)
 - **5 Supported Channels**: Extract data across Meta Threads, Instagram, TikTok, Twitter/X, and Google Maps POI.
 - **Zero Infrastructure Hassle**: No proxies to rent, no burner accounts to manage, and no browser overhead.
 - **Ready-to-Use Data**: Clean exports in Excel format (business names, verified WhatsApp numbers, categories, cities) or REST API.

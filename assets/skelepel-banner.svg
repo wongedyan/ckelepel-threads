@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 130" width="850" height="130" fill="none" role="img" aria-label="Skelepel — High-Throughput Multi-Platform Intelligence Gateway" style="max-width: 100%; height: auto; display: block;">
   <title>Skelepel — High-Throughput Multi-Platform Intelligence Gateway</title>
-  <desc>Multi-platform direct HTTP API · Threads, X, TikTok, IG, Maps · skelepel.my.id · Pay-per-success architecture</desc>
+  <desc>Multi-platform direct HTTP API · Threads, X, TikTok, IG, Maps · skelepel.id · Pay-per-success architecture</desc>
 
   <defs>
     <!-- Background subtle zinc gradient -->
@@ -161,7 +161,7 @@
 
   <!-- Row 2: Subtitle (baseline y=66) -->
   <g transform="translate(124, 66)">
-    <text class="subtitle-main" x="0" y="0">Extract business leads &amp; social data without managing proxies <tspan fill="#71717a">·</tspan> <tspan class="domain-text">skelepel.my.id</tspan></text>
+    <text class="subtitle-main" x="0" y="0">Extract business leads &amp; social data without managing proxies <tspan fill="#71717a">·</tspan> <tspan class="domain-text">skelepel.id</tspan></text>
   </g>
 
   <!-- Row 3: Feature Badges (y=84, height=22, bottom=106) -->

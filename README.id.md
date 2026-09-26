@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://skelepel.my.id">
+  <a href="https://skelepel.id">
     <img src="assets/skelepel-banner.svg" alt="Skelepel — Multi-Platform Data Intelligence" width="100%">
   </a>
 </p>
@@ -39,12 +39,12 @@
   <sub><code>npx github:wongedyan/ckelepel-threads search "query" --limit 50</code></sub>
 </td>
 <td width="50%" align="center" valign="top">
-  <a href="https://skelepel.my.id">
+  <a href="https://skelepel.id">
     <img src="assets/skelepel-logo.svg" width="90" height="90" alt="Skelepel Cloud Gateway" style="max-width: 100%; height: auto;" /><br />
     <strong>Skelepel Cloud Gateway</strong>
   </a><br />
   <sub>Tarik kontak supplier, database bisnis, dan review dari <strong>Threads, IG, TikTok, X &amp; Google Maps</strong> langsung siap pakai ke Excel. Tanpa sewa proxy, bayar per data sukses.</sub><br />
-  <sub><a href="https://skelepel.my.id"><strong>Buka Portal Skelepel (skelepel.my.id) →</strong></a></sub>
+  <sub><a href="https://skelepel.id"><strong>Buka Portal Skelepel (skelepel.id) →</strong></a></sub>
 </td>
 </tr>
 </table>
@@ -271,7 +271,7 @@ for (const post of results) {
 
 Capek scraping manual atau sewa proxy mahal cuma buat ambil data? **Skelepel** menyediakan layanan siap pakai untuk mengambil data kontak bisnis, supplier, toko, dan review langsung ke file Excel atau JSON API.
 
-- **Portal Resmi**: [https://skelepel.my.id](https://skelepel.my.id)
+- **Portal Resmi**: [https://skelepel.id](https://skelepel.id)
 - **5 Platform Sekaligus**: Ambil data dari Threads, Instagram, TikTok, Twitter/X, dan Google Maps.
 - **Tanpa Pusing Infrastruktur**: Gak perlu sewa proxy, gak perlu login akun tumbal, dan gak takut akun kena blokir.
 - **Hasil Siap Pakai**: Data langsung rapi berformat Excel (nama bisnis, nomor WhatsApp, kategori, kota) atau REST API untuk integrasi ke CRM / aplikasi kamu.

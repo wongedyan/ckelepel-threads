@@ -21,6 +21,11 @@
   ],
   "author": "wongedyan",
   "license": "MIT",
+  "homepage": "https://skelepel.id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wongedyan/ckelepel-threads.git"
+  },
   "dependencies": {
     "undici": "^6.21.1",
     "commander": "^12.1.0"
